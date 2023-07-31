@@ -1,0 +1,63 @@
+{   "positions": {
+        "colsGrid": [[], [], []]
+    },
+
+    "inputs": [
+        {
+            "key": "dateCreating",
+            "type": "string",
+            "label": "Название",
+            "value": "",
+            "validation": true,
+            "show": true,
+            "show__role": ["admin", "customer"],
+            "change__role": ["admin", "customer"],
+            "position": [0, 0]
+        },
+        {
+            "key": "figma",
+            "type": "string",
+            "label": "Название",
+            "value": "",
+            "validation": true,
+            "show": true,
+            "show__role": ["admin", "customer"],
+            "change__role": ["admin", "customer"],
+            "position": [0, 1]
+        },
+        {
+            "key": "priority",
+            "type": "string",
+            "label": "Название",
+            "value": "",
+            "validation": true,
+            "show": true,
+            "show__role": ["admin", "customer"],
+            "change__role": ["admin", "customer"],
+            "position": [0, 1]
+        },
+        {
+            "key": "ref",
+            "type": "string",
+            "label": "Название 1.1",
+            "value": "",
+            "validation": true,
+            "show": true,
+            "show__role": ["admin", "customer"],
+            "change__role": ["admin", "customer"],
+            "position": [1, 1]
+        },
+        {
+            "key": "title",
+            "type": "string",
+            "label": "Название 2.0",
+            "value": "",
+            "validation": true,
+            "show": true,
+            "show__role": ["admin", "customer"],
+            "change__role": ["admin", "customer"],
+            "position": [2, 0]
+        }
+        
+    ]
+}

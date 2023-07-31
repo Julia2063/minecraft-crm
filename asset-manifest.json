@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/minecraft-crm/static/css/main.8ae73346.css",
+    "main.js": "/minecraft-crm/static/js/main.4c7d9a8c.js",
+    "index.html": "/minecraft-crm/index.html",
+    "main.8ae73346.css.map": "/minecraft-crm/static/css/main.8ae73346.css.map",
+    "main.4c7d9a8c.js.map": "/minecraft-crm/static/js/main.4c7d9a8c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8ae73346.css",
+    "static/js/main.4c7d9a8c.js"
+  ]
+}

@@ -5,8 +5,15 @@ import { Comments } from "./Comments"
 import { Input } from "./Input"
 import { InputFile } from "./InputFile"
 
-export const View1 = ({ order, setOrder, newComment, setNewComment, handleAddNewComment,  isTextarea,
-    setIsTextArea}) => {
+export const View1 = ({ 
+    order, 
+    setOrder, 
+    newComment, 
+    setNewComment, 
+    handleAddNewComment,  
+    activeIndex,
+    setActiveIndex
+}) => {
 
     const {users, userRole} = useContext(AppContext);
     
@@ -45,8 +52,9 @@ export const View1 = ({ order, setOrder, newComment, setNewComment, handleAddNew
                 onChange={(e) => setNewComment({ ...newComment, concept: e.target.value })}
                 currentOrder
                 handleAddNewComment={() => handleAddNewComment('concept')}
-                isTextarea={isTextarea}
-                setIsTextArea={setIsTextArea}
+                activeIndex={activeIndex}
+                setActiveIndex={setActiveIndex}
+                index={10}
             />
         </div>
         <div className="border-b border-[#E9E9E9] pb-[20px] relative flex flex-col gap-[20px]">
@@ -77,8 +85,9 @@ export const View1 = ({ order, setOrder, newComment, setNewComment, handleAddNew
                     onChange={(e) => setNewComment({ ...newComment, functional: e.target.value })}
                     currentOrder
                     handleAddNewComment={() => handleAddNewComment('functional')}
-                    isTextarea={isTextarea}
-                    setIsTextArea={setIsTextArea}
+                    activeIndex={activeIndex}
+                    setActiveIndex={setActiveIndex}
+                    index={8}
                  />
             </div>
             <div className="flex flex-col gap-[10px] relative">
@@ -109,9 +118,10 @@ export const View1 = ({ order, setOrder, newComment, setNewComment, handleAddNew
                     onChange={(e) => setNewComment({ ...newComment, research: e.target.value })}
                     currentOrder
                     handleAddNewComment={() => handleAddNewComment('research')}
-                    isTextarea={isTextarea}
-                    setIsTextArea={setIsTextArea}
-                    />
+                    activeIndex={activeIndex}
+                    setActiveIndex={setActiveIndex}
+                    index={9}
+                />
             </div></>
     )
 }

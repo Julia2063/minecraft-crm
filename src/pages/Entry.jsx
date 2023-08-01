@@ -95,16 +95,16 @@ function Entry() {
       };
 
     return (
-        <section className="flex justify-center mt-[211px] ">
-        <div className="w-[572px] h-[267px] bg-white rounded shadow-md">
+        <section className="flex fkex-col justify-center items-center h-screen">
+        <div className="w-3/4 lg:w-[572px] lg:h-[267px] bg-white rounded shadow-md h-max pb-[20px]">
           <div>
             <div className="mt-3 mb-3 ml-4">
               <span className="text-lg">{func === 'login' ? 'Вход' : 'Регистрация'}</span>
             </div>
           </div>
-          <div className="ml-[19px] mr-[21px] mt-8">
+          <div className="ml-[19px] mr-[21px] mt-8 flex flex-col gap-[10px]">
             <form onSubmit={(e) => onSubmit(e)}>
-              <div className="flex flex-row items-center justify-between">
+              <div className="flex flex-col gap-[5px] lg:gap-[0px] lg:flex-row lg:mb-[10px] lg:items-center lg:justify-between">
                 <div>
                   <span>Логин</span>
                 </div>
@@ -113,12 +113,12 @@ function Entry() {
                   type="email"
                   value={email}
                   onChange={onChange}
-                  className="w-[426px] h-[36px] rounded border-[#E9E9E9] border pl-3"
+                  className="w-full lg:w-[426px] h-[36px] rounded border-[#E9E9E9] border pl-3"
                   placeholder="Логин"
                   required
                 />
               </div>
-              <div className="flex flex-row items-center justify-between pt-[18px]">
+              <div className="flex  flex-col gap-[5px] lg:gat-[0px] lg:flex-row lg:items-center lg:justify-between mb-[20px] lg:mb-[0px]">
                 <div>
                   <span>Пароль</span>
                 </div>
@@ -128,13 +128,13 @@ function Entry() {
                     type="password"
                     value={password}
                     onChange={onChange}
-                    className="w-[426px] h-[36px] rounded border-[#E9E9E9] border pl-3"
+                    className="w-full lg:w-[426px] h-[36px] rounded border-[#E9E9E9] border pl-3"
                     placeholder="Пароль"
                     required
                   />
                 </div>
               </div>
-              <div className="pt-[17px] pl-[40px] flex justify-between mb-[20px]">
+              <div className="lg:pt-[17px] lg:pl-[40px] flex lg:flex-row flex-col lg:justify-between mb-[20px] text-[14px] gap-[10px] lg:gap-[0px]">
                 {func === 'login' && 
                     <button 
                     className="font-bold"
@@ -162,7 +162,7 @@ function Entry() {
                 >
                   <FcGoogle />
                 </button>
-                <Button type="submit" label={func !== 'login' ? 'Зарегистрироваться' : 'Войти'} />
+                <Button type="submit" label={func !== 'login' ? 'Зарегистрироваться' : 'Войти'} className="text-[12px] lg:text-[16px]" />
               </div>
             </form>
           </div>

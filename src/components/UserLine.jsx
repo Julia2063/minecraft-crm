@@ -21,14 +21,14 @@ export const UserLine = ({ data, openModal, i }) => {
   
     return (
         <>
-          <div className=" w-full h-12 flex flex-row items-center justify-between border-b-2 border-['#E9E9E9'] py-[5px]">
-            <div className="w-auto pl-[20px] pr-[20px] text-center">
+          <div className="gap-[5px] lg:gap-[0px] w-full h-max flex flex-row items-center justify-between border-b-2 border-['#E9E9E9'] py-[5px]">
+            <div className="w-auto lg:pl-[20px] lg:pr-[20px] pl-[5px] pr-[5px] text-center">
                 <p className="text-[#727272]">
                     {i + 1}
                 </p>
             </div>
-            <div className="w-1/4">
-                <p className="text-[#727272]">
+            <div className="lg:w-1/4 w-auto">
+                <p className="text-[#727272] text-[8px] lg:text-[16px]">
                     {data.email}
                 </p>
             </div>
@@ -37,7 +37,7 @@ export const UserLine = ({ data, openModal, i }) => {
                     {data.role.length > 0 ? getRole(data.role) : 'нет роли'}
                 </p>
             </div>
-            <div className="w-1/4">
+            <div className="lg:w-1/4 w-auto pr-[5px]">
                 <Button
                     type="button"
                     label="Назначить роль"

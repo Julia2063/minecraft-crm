@@ -4,6 +4,7 @@ import { Button } from './Button';
 import { updateFieldInDocumentInCollection } from '../helpers/firebaseControl';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { AdditionalWork } from './AdditionalWork';
 
 export const View3 = ({ order }) => {
     const navigate = useNavigate();
@@ -50,11 +51,17 @@ export const View3 = ({ order }) => {
                 <label className="flex flex-col gap-[10px]">
                     <span className="font-bold">Процент выполнения</span>
                     <div>
-                <div className='h-[16px] w-[100px] bg-[#9db3f3] rounded'>
-                    <div className={`h-[16px] bg-[#375fd5] rounded w-[${(order.execution)}px]`} />
-                </div>
-            </div>
+                        <div className='h-[16px] w-[100px] bg-[#9db3f3] rounded'>
+                            <div className={`h-[16px] bg-[#375fd5] rounded w-[${(order.execution)}px]`} />
+                        </div>
+                    </div>
                 </label>
+            </div>
+            <div className="pb-[20px]  pt-[20px] flex flex-col gap-[10px]">
+              <AdditionalWork
+                order={order}
+                disabled
+              />
             </div>
             
             <Button

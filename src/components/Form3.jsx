@@ -1,3 +1,4 @@
+import { AdditionalWork } from "./AdditionalWork";
 import { Button } from "./Button";
 import { Input } from "./Input"
 
@@ -43,7 +44,7 @@ export const Form3 = ({order, setOrder, handleChange, handleSubmit}) => {
                 })}
                </label>
             </div>
-            <div className="pb-[20px] pt-[20px] flex gap-[10px] items-center">
+            <div className="border-b border-[#E9E9E9] pb-[20px] pt-[20px] flex gap-[10px] items-center">
                 <Input
                     title="Процент выполнения"
                     name="execution"
@@ -56,6 +57,12 @@ export const Form3 = ({order, setOrder, handleChange, handleSubmit}) => {
                     inputStyle="w-1/3 h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2"
                 />  
                     <span>%</span>
+            </div>
+            <div className="pb-[20px]  pt-[20px] flex flex-col gap-[10px]">
+              <AdditionalWork 
+                setOrder={setOrder}
+                order={order}
+              />
             </div>
             <Button
               type="submit" 

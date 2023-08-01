@@ -10,8 +10,8 @@ export const Form0 = ({
   newComment, 
   setNewComment,
   handleSubmit,
-  isTextarea,
-  setIsTextArea
+  activeIndex,
+  setActiveIndex
 }) => {
     
 
@@ -62,8 +62,9 @@ export const Form0 = ({
                 title='ТЗ'
                 comments={[]}
                 onChange={(e) => setNewComment({...newComment, tz: e.target.value})}
-                isTextarea={isTextarea}
-                setIsTextArea={setIsTextArea}
+                activeIndex={activeIndex}
+                setActiveIndex={setActiveIndex}
+                index={1}
               />
             </div>
 
@@ -84,8 +85,9 @@ export const Form0 = ({
                 title='Research'
                 comments={[]}
                 onChange={(e) => setNewComment({...newComment, research: e.target.value})}
-                isTextarea={isTextarea}
-                setIsTextArea={setIsTextArea}
+                activeIndex={activeIndex}
+                setActiveIndex={setActiveIndex}
+                index={2}
               />
             </div>
 

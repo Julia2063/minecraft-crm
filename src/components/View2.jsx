@@ -6,8 +6,15 @@ import { InputFile } from "./InputFile";
 import { PaymentStages } from "./PaymentStages";
 import { AppContext } from "../context/AppContext";
 
-export const View2 = ({order, setOrder, newComment, setNewComment, handleAddNewComment,  isTextarea,
-    setIsTextArea}) => {
+export const View2 = ({
+    order, 
+    setOrder, 
+    newComment, 
+    setNewComment, 
+    handleAddNewComment,  
+    activeIndex,
+    setActiveIndex
+}) => {
     const {users, userRole} = useContext(AppContext);
 
     return (
@@ -59,9 +66,9 @@ export const View2 = ({order, setOrder, newComment, setNewComment, handleAddNewC
                     onChange={(e) => setNewComment({ ...newComment, tz: e.target.value })} 
                     currentOrder
                     handleAddNewComment={() => handleAddNewComment('tz')}
-                    isTextarea={isTextarea}
-                    setIsTextArea={setIsTextArea}
-                    
+                    activeIndex={activeIndex}
+                    setActiveIndex={setActiveIndex}
+                    index={15}
                 />
             </div>
             <div className="border-b border-[#E9E9E9] pb-[20px] flex flex-col gap-[10px] relative">
@@ -90,9 +97,10 @@ export const View2 = ({order, setOrder, newComment, setNewComment, handleAddNewC
                     onChange={(e) => setNewComment({ ...newComment, plan: e.target.value })}
                     currentOrder
                     handleAddNewComment={() => handleAddNewComment('plan')}
-                    isTextarea={isTextarea}
-                    setIsTextArea={setIsTextArea}
-                    />
+                    activeIndex={activeIndex}
+                    setActiveIndex={setActiveIndex}
+                    index={16}
+                />
             </div>
             <div className="border-b border-[#E9E9E9] pb-[20px] flex flex-col gap-[10px] relative">
             <label className="flex justify-between items-center">
@@ -129,8 +137,9 @@ export const View2 = ({order, setOrder, newComment, setNewComment, handleAddNewC
                     onChange={(e) => setNewComment({ ...newComment, content: e.target.value })}
                     currentOrder
                     handleAddNewComment={() => handleAddNewComment('content')}
-                    isTextarea={isTextarea}
-                    setIsTextArea={setIsTextArea} 
+                    activeIndex={activeIndex}
+                    setActiveIndex={setActiveIndex}
+                    index={17}
                     
                     />
             </div>
@@ -201,8 +210,9 @@ export const View2 = ({order, setOrder, newComment, setNewComment, handleAddNewC
                 onChange={(e) => setNewComment({...newComment, contract: e.target.value})}
                 currentOrder
                 handleAddNewComment={() => handleAddNewComment('contract')} 
-                isTextarea={isTextarea}
-                setIsTextArea={setIsTextArea}
+                activeIndex={activeIndex}
+                setActiveIndex={setActiveIndex}
+                index={18}
               />
 
             </div>

@@ -16,8 +16,8 @@ export const Form1 = ({
     handleChangePhotos, 
     handleDeletePhoto,
     getApprove,
-    isTextarea,
-    setIsTextArea
+    activeIndex,
+    setActiveIndex
 }) => {
 
   const { users, userRole } = useContext(AppContext);
@@ -39,7 +39,7 @@ export const Form1 = ({
                 inputStyle="w-3/4 h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2 "
               />
               <InputFile
-                disabled={order.concept.approve}
+                disabled={order.concept.approve === 'yes' || order.concept.approve === 'wait'}
                 title='Концепт'
                 name='concept'
                 handleChange={(e) => handleChangePhotos(e, 'concept')}
@@ -61,8 +61,9 @@ export const Form1 = ({
                 title='Концепту'
                 comments={order.concept.comments}
                 onChange={(e) => setNewComment({...newComment, concept: e.target.value})}
-                isTextarea={isTextarea}
-                setIsTextArea={setIsTextArea}
+                activeIndex={activeIndex}
+                setActiveIndex={setActiveIndex}
+                index={5}
               />
         </div>
         <div className="border-b border-[#E9E9E9] pb-[20px] relative flex flex-col gap-[20px]">
@@ -93,8 +94,9 @@ export const Form1 = ({
                 title='функционалу'
                 comments={order.functional.comments}
                 onChange={(e) => setNewComment({...newComment, functional: e.target.value})}
-                isTextarea={isTextarea}
-                setIsTextArea={setIsTextArea}
+                activeIndex={activeIndex}
+                setActiveIndex={setActiveIndex}
+                index={6}
               />
         </div>
 
@@ -126,8 +128,9 @@ export const Form1 = ({
                 title='Research'
                 comments={order.research.comments}
                 onChange={(e) => setNewComment({...newComment, research: e.target.value})}
-                isTextarea={isTextarea}
-                setIsTextArea={setIsTextArea}
+                activeIndex={activeIndex}
+                setActiveIndex={setActiveIndex}
+                index={7}
               />
         </div>
         <Button

@@ -47,7 +47,7 @@ const Order = ({
       contract:[]
     });
 
-    const [isTextarea, setIsTextArea] = useState(false);
+    const [activeIndex, setActiveIndex] = useState(0);
 
     const navigate = useNavigate();
 
@@ -123,7 +123,7 @@ const Order = ({
 
   const getApprove = async (name) => {
     try { 
-      if(files[name].length > 0) {
+      if(files[name]?.length > 0) {
       const deletedImages = currentOrder[name].files.filter(e => !order[name].files.includes(e));
       deletedImages.forEach(el => deleteImageFromStorage(el));
       
@@ -135,28 +135,31 @@ const Order = ({
               ...order[name], 
               approve: 'wait', 
               files: [...currentOrder[name].files.filter(el => order[name].files.includes(el)), ...res],
-              comments: newComment[name].length >  0 ?  [...order[name].comments, 
+              comments: newComment[name]?.length >  0 ?  [...order[name].comments, 
             {
               text: newComment[name],
               date: format(new Date(), 'yyyy-MM-dd HH:mm'),
               user: [user.nickName, user.uid],
             }
-            ] : order[name].comments,
+            ] : order[name]?.comments,
           
-        }}, currentOrder.idPost);
+        }}, order.idPost);
         });
       } else {
          await updateDocumentInCollection(
-            'orders', {...order, [name]: {
+            'orders', {...order, [name]: order[name].hasOwnProperty('comments') ? {
               ...order[name],
               approve: 'wait', 
-              comments: newComment[name].length >  0 ?  [...order[name].comments, 
+              comments: newComment[name]?.length >  0 ?  [...order[name].comments, 
               {
                 text: newComment[name],
                 date: format(new Date(), 'yyyy-MM-dd HH:mm'),
                 user: [user.nickName, user.uid],
               }
-              ] : order[name].comments}}, order.idPost, 
+              ] : order[name].comments} : {
+                ...order[name],
+                approve: 'wait', 
+              }}, order.idPost, 
         );
       }
       setFiles({
@@ -173,7 +176,7 @@ const Order = ({
           content: '',
           contract: '',
       });
-      setIsTextArea(false);
+      setActiveIndex(0);
       toast.success('Запрос на согласованиe отправлен');
        
     } catch (error) {
@@ -275,6 +278,12 @@ const handleSubmitChange = async (e) => {
         contract:  {
           ...order.contract,
           files: res.contract ? [...currentOrder.contract.files.filter(el => order.contract.files.includes(el)), ...res.contract] : files.contract.files,
+          comments: newComment.contract.length > 0 ? [...order.contract.comments, {
+            text: newComment.contract,
+            date: format(new Date(), 'yyyy-MM-dd HH:mm'),
+            user: [user.nickName, user.uid],
+            }]
+          : order.contract.comments,
         },
         content:  {
           ...order.content,
@@ -323,7 +332,17 @@ const handleSubmitChange = async (e) => {
           date: format(new Date(), 'yyyy-MM-dd HH:mm'),
           user: [user.nickName, user.uid],
           }]
-        : order.concept,
+        : order.concept.comments,
+      },
+      contract:  {
+        ...order.contract,
+        files:[...currentOrder.contract.files.filter(el => order.contract.files.includes(el))],
+        comments: newComment.contract.length > 0 ? [...order.contract.comments, {
+          text: newComment.contract,
+          date: format(new Date(), 'yyyy-MM-dd HH:mm'),
+          user: [user.nickName, user.uid],
+          }]
+        : order.contract.comments,
       },
       content:  {
         ...order.content,
@@ -333,7 +352,7 @@ const handleSubmitChange = async (e) => {
           date: format(new Date(), 'yyyy-MM-dd HH:mm'),
           user: [user.nickName, user.uid],
           }]
-        : order.content,
+        : order.content.comments,
       },
     }, currentOrder.idPost);
     }
@@ -362,8 +381,8 @@ console.log(order);
                       newComment={newComment}
                       setNewComment={setNewComment}
                       handleAddNewComment={handleAddNewComment}
-                      isTextarea={isTextarea}
-                      setIsTextArea={setIsTextArea}
+                      activeIndex={activeIndex}
+                      setActiveIndex={setActiveIndex}
                     />
                   ): (
                     <Form0 
@@ -373,8 +392,8 @@ console.log(order);
                       newComment={newComment}
                       setNewComment={setNewComment}
                       handleSubmit={handleSubmit}
-                      isTextarea={isTextarea}
-                      setIsTextArea={setIsTextArea}
+                      activeIndex={activeIndex}
+                      setActiveIndex={setActiveIndex}
                      /*  model={""} 
                       update={console.log("")} 
                       newOrder={newOrder} 
@@ -396,8 +415,8 @@ console.log(order);
                       newComment={newComment}
                       handleSubmit={handleSubmitChange}
                       getApprove={getApprove}
-                      isTextarea={isTextarea}
-                      setIsTextArea={setIsTextArea}
+                      activeIndex={activeIndex}
+                      setActiveIndex={setActiveIndex}
                   />
                   ) : (
                     <View1
@@ -406,8 +425,8 @@ console.log(order);
                       newComment={newComment}
                       setNewComment={setNewComment}
                       handleAddNewComment={handleAddNewComment}
-                      isTextarea={isTextarea}
-                      setIsTextArea={setIsTextArea}
+                      activeIndex={activeIndex}
+                      setActiveIndex={setActiveIndex}
                     />
                   )}
                   
@@ -427,8 +446,8 @@ console.log(order);
                     handleDeletePhoto={handleDeletePhoto}
                     handleSubmit={handleSubmitChange}
                     getApprove={getApprove}
-                    isTextarea={isTextarea}
-                    setIsTextArea={setIsTextArea}
+                    activeIndex={activeIndex}
+                    setActiveIndex={setActiveIndex}
                   />
                 ) : (
                   <View2 
@@ -437,8 +456,8 @@ console.log(order);
                     newComment={newComment}
                     setNewComment={setNewComment}
                     handleAddNewComment={handleAddNewComment}
-                    isTextarea={isTextarea}
-                    setIsTextArea={setIsTextArea}
+                    activeIndex={activeIndex}
+                    setActiveIndex={setActiveIndex}
                   />
                 )}
                  

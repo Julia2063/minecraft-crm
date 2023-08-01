@@ -35,8 +35,8 @@ export const PaymentStages = ({ title, order, setOrder, disabled, ...props }) =>
       }, [stages, order.paymentStages]);
 
     return (
-        <div className='flex gap-[40px] items-center'>
-
+        <div className='flex lg:gap-[40px] items-center lg:flex-row flex-col gap-[10px]'>
+ 
             <span className="font-bold">{title}</span>
 
             <button 

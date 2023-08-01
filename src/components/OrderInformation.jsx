@@ -15,9 +15,8 @@ export const OrderInformation = ({ order }) => {
             <div className="border-b border-[#E9E9E9] pb-[20px] pt-[20px] flex flex-col gap-[10px]">
                 <label className="flex justify-between items-baseline">
                     <span className="font-bold">Figma</span>
-                    <div className="w-3/4 h-[36px]"
-                >
-                    <a href={order.figma} target="_blank">ссылка</a>
+                    <div className="w-3/4 h-[36px]">
+                        <a href={order.figma} target="_blank">ссылка</a>
                     </div>
                 </label>
             </div>
@@ -43,11 +42,11 @@ export const OrderInformation = ({ order }) => {
                 <label className="flex justify-between items-baseline">
                     <span className="font-bold">Контент</span>
                     <div className="w-3/4 flex flex-col gap-[10px]">
-                    {order.content.text}
-                    <div className="h-[300px] flex gap-[5px]">
+                    <a href={order.content.text} target="_blank">ссылка</a>
+                    <div className="lg:h-[300px] h-max flex gap-[5px] lg:flex-row flex-col">
                         {order.content.files.map((el, i) => {
                           return (
-                            <div className="h-full w-1/3 " key={`${el}${i}`}>
+                            <div className="h-full lg:w-1/3 w-full " key={`${el}${i}`}>
                               <img
                                 src={el} 
                                 alt="img"

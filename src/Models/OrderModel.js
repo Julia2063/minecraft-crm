@@ -1,3 +1,11 @@
+export const AdditionalWorkModel = {
+  title: '',
+  tz:'',
+  hh: '',
+  price: '',
+  end: '',
+};
+
 export const OrderModel = {
     uid: '',
     title: '',
@@ -70,8 +78,9 @@ export const OrderModel = {
     comments: '',
     id: '', 
     dateCreating: '',
-    additionalWork: {},
+    additionalWork: AdditionalWorkModel,
     stage: '0',
     active: true,
     subscribe: '',
 };
+

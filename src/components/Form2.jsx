@@ -18,8 +18,8 @@ export const Form2 = ({
     handleChange,
     handleSubmit,
     getApprove,
-    isTextarea,
-    setIsTextArea
+    activeIndex,
+    setActiveIndex
 }) => {
 
   const { users, userRole } = useContext(AppContext);
@@ -77,8 +77,9 @@ export const Form2 = ({
                 title='ТЗ'
                 comments={order.tz.comments}
                 onChange={(e) => setNewComment({...newComment, tz: e.target.value})}
-                isTextarea={isTextarea}
-                setIsTextArea={setIsTextArea}
+                activeIndex={activeIndex}
+                setActiveIndex={setActiveIndex}
+                index={11}
               />
             </div>
 
@@ -109,8 +110,9 @@ export const Form2 = ({
                 title='Плану работ'
                 comments={order.plan.comments}
                 onChange={(e) => setNewComment({...newComment, plan: e.target.value})}
-                isTextarea={isTextarea}
-                setIsTextArea={setIsTextArea}
+                activeIndex={activeIndex}
+                setActiveIndex={setActiveIndex}
+                index={12}
               />
             </div>
 
@@ -127,7 +129,7 @@ export const Form2 = ({
                 inputStyle="w-3/4 h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2 disabled:opacity-50"
               />
               <InputFile
-                disabled={order.content.approve}
+                disabled={order.content.approve === 'yes' || order.content.approve === 'wait'}
                 title='Контент'
                 name='content'
                 handleChange={(e) => handleChangePhotos(e, 'content')}
@@ -150,8 +152,10 @@ export const Form2 = ({
                 title='Контенту'
                 comments={order.content.comments}
                 onChange={(e) => setNewComment({...newComment, content: e.target.value})}
-                isTextarea={isTextarea}
-                setIsTextArea={setIsTextArea}
+                activeIndex={activeIndex}
+                setActiveIndex={setActiveIndex}
+                index={13}
+
               />
         </div>
 
@@ -234,8 +238,9 @@ export const Form2 = ({
                 title='Контракту'
                 comments={order.contract.comments}
                 onChange={(e) => setNewComment({...newComment, contract: e.target.value})}
-                isTextarea={isTextarea}
-                setIsTextArea={setIsTextArea}
+                activeIndex={activeIndex}
+                setActiveIndex={setActiveIndex}
+                index={14}
               />
 
             </div>

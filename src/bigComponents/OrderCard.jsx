@@ -29,7 +29,7 @@ export const OrderCard = () => {
 
 
     return (
-        <div className='p-[60px] '>
+        <div className='p-[20px] lg:p-[40px] md:p-[60px] text-[10px] lg:text-[16px]'>
             <button 
                 className='mb-[20px]' 
                 type='button'

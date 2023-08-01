@@ -36,7 +36,7 @@ export const SettingsForm = ({ data }) => {
     };
 
  return (
-    <form className='w-2/3 flex flex-col gap-[10px]' onSubmit={(e) => handleSubmit(e)}>
+    <form className='w-full lg:w-2/3 flex flex-col gap-[10px] text-[10px] lg:text-[16px]' onSubmit={(e) => handleSubmit(e)}>
         <div className="border-b border-[#E9E9E9] pb-[20px] flex flex-col gap-[10px]">
         <Input
           title="Ник"
@@ -53,7 +53,7 @@ export const SettingsForm = ({ data }) => {
 
         {user.telegramId.length === 0 && (
             <div className='flex gap-[10px]'>
-                <h6>Для того, чтобы получать сообщения в Телеграм, зайдите по данной ссылке и создайте Telegram ID, а затем заполните следующее поле:</h6>
+                <h6 className='text-[10px] lg:text-[16px]'>Для того, чтобы получать сообщения в Телеграм, зайдите по данной ссылке и создайте Telegram ID, а затем заполните следующее поле:</h6>
                 <a href='https://t.me/getmyid_bot' target='_blanc'>@getmyid_bot</a>
 
             </div>

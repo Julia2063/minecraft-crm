@@ -15,12 +15,12 @@ export const InputFile = ({
   }) => {
 
     return (
-        <label className="flex justify-between items-center ">
+        <label className="flex lg:flex-row lg:justify-between lg:items-center flex-col gap-[10px] lg:gap-[0px]">
             <span className="font-bold">
               {title}
             </span>
               
-             <div className="flex w-3/4 gap-[10px] items-center">
+             <div className="flex lg:w-3/4 w-full gap-[10px] items-center">
                 
                 <label className="relative cursor-pointer">
                   {!disabled && (
@@ -36,27 +36,47 @@ export const InputFile = ({
                       type="file"
                       className="absolute h-[40px] w-[40px] top-[0px] opacity-0"
                       onChange={handleChange}
+                      disabled={disabled}
                     />
                   </label>
               
-                  <div className="h-[300px] w-full rounded border-[#E9E9E9] border mt-2 disabled:opacity-50 flex gap-[5px] p-[5px] items-center">
+                  <div className="h-max lg:h-[300px] w-full rounded border-[#E9E9E9] border mt-2 disabled:opacity-50 flex gap-[5px] p-[5px] items-center lg:flex-row flex-col">
                        {file ? (
 
                         <div className='w-full flex items-center justify-center'>
                         {array.length > 0 && 
-                        <a href={array[0]} target='_blanc'className='border-2 border-[#000] h-[40px] w-[40px] rounded flex items-center justify-center'>
-                          <GrDocumentPdf/>
-                        </a>
-                          
-                        }
+
+                        array.map((el, i) => {
+                          return (
+                            <div className='relative'>
+                            <a href={el} target='_blanc' className='border-2 border-[#000] h-[40px] w-[40px] rounded flex items-center justify-center'>
+                              <GrDocumentPdf/>
+                              
+                            </a>
+
+                            {!disabled && (
+                                <button  
+                                  type="button"
+                                  className="absolute border-1 border-black top-[0] right-[-25px] h-[20px] w-[20px] z-10 rounded-full bg-white text-black flex items-center justify-center" 
+                                  onClick={() => handleDeletePhoto(i, name)}
+                                >
+                                -
+                                </button>
+                                
+                              )}  
+                            </div>
+                          )
+                        })
                         
+                          
+                      }
                         </div>
                           
                        ) : (
                         <>
                            {array.map((el, i) => {
                           return (
-                            <div className="h-full w-1/3 relative" key={`${el}${i}`}>
+                            <div className="h-full lg:w-1/3 w-full relative" key={`${el}${i}`}>
                               <img
                                 src={array[i]} 
                                 alt="img"

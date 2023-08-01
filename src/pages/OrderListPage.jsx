@@ -11,7 +11,7 @@ import { OrderLine } from '../components/OrderLine';
 
 import AddOrder from '../Models/AddOrder.json';
 import FormModels from '../Models/FormModels';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Kanban } from '../bigComponents/Kanban';
 
 function OrderListPage() {
@@ -76,7 +76,7 @@ function OrderListPage() {
   };
 
     return (
-        <div className='p-[60px] w-full flex flex-col gap-[40px] '>
+        <div className='p-[15px] lg:p-[40px] md:p-[60px] w-full flex flex-col gap-[40px] '>
           {userRole.includes('admin') && 
            <Button 
               type="button" 
@@ -112,7 +112,7 @@ function OrderListPage() {
                 
               <TabPanel>
               <div className='pt-[40px]'>
-                <div className=' py-[20px] shadow-md h-max rounded-lg border-[1px]'>
+                <div className='py-[20px] shadow-md h-max rounded-lg border-[1px]'>
                   <Kanban orders={orders} />
                 </div>
                 

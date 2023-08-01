@@ -6,8 +6,8 @@ export const View0 = ({
     newComment, 
     setNewComment, 
     handleAddNewComment,
-    isTextarea,
-    setIsTextArea
+    activeIndex,
+    setActiveIndex
 }) => {
     return (
         <>
@@ -54,8 +54,9 @@ export const View0 = ({
                     onChange={(e) => setNewComment({ ...newComment, tz: e.target.value })}
                     currentOrder
                     handleAddNewComment={() => handleAddNewComment('tz')}
-                    isTextarea={isTextarea}
-                    setIsTextArea={setIsTextArea}
+                    activeIndex={activeIndex}
+                    setActiveIndex={setActiveIndex}
+                    index={3}
                 />
             </div><div className="border-b border-[#E9E9E9] pb-[20px] flex flex-col gap-[10px]">
                 <Input
@@ -75,8 +76,9 @@ export const View0 = ({
                     onChange={(e) => setNewComment({ ...newComment, research: e.target.value })}
                     currentOrder 
                     handleAddNewComment={() => handleAddNewComment('research')}
-                    isTextarea={isTextarea}
-                    setIsTextArea={setIsTextArea}
+                    activeIndex={activeIndex}
+                    setActiveIndex={setActiveIndex}
+                    index={4}
                 />
             </div>
 

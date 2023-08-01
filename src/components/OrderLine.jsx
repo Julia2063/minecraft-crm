@@ -11,8 +11,8 @@ import { Link } from "react-router-dom";
 export const OrderLine = ({ i, data }) => {
 
     return (
-      <div className=" border-b border-[#E9E9E9] py-[10px] flex items-center h-max">
-        <div className="w-auto pl-[20px] pr-[20px]">
+      <div className=" border-b border-[#E9E9E9] py-[10px] flex items-center h-max text-[10px] lg:text-[16px]">
+        <div className="w-auto lg:pl-[20px] lg:pr-[20px] pl-[8px] pr-[8px]">
           <p className=" font-bold text-[#727272] ">{i + 1}</p>
         </div>
         <div className="w-1/4">
@@ -46,7 +46,7 @@ export const OrderLine = ({ i, data }) => {
             {data.priority}
           </p>
         </div>
-        <div className="w-auto pl-[20px] pr-[20px]">
+        <div className="w-auto lg:pl-[20px] lg:pr-[20px] pl-[8px] pr-[8px]">
            <button onClick={() => handleDelete(data)}>
           <GrClose />
         </button>

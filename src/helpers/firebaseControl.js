@@ -226,6 +226,7 @@ export function createNewUser(uid, email) {
     })
     
     return  Promise.all(promisesUploadImages).then(res => {
+      console.log(imagesUrl);
       return imagesUrl;
     });
   };

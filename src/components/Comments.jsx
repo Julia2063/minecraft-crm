@@ -12,18 +12,18 @@ export const Comments = ({
     onChange, 
     handleAddNewComment, 
     currentOrder,
-    isTextarea,
-    setIsTextArea
+    activeIndex,
+    setActiveIndex,
+    index
 }) => {
-    
-    
+
     return (
-        <div className={cn(className, 'flex flex-col items-end w-full gap-[10px]' )}>
-            <div className='flex flex-col gap-[5px] w-2/3'>
+        <div className={cn(className, 'flex flex-col items-end w-full gap-[10px] text-[10px] lg:text-[16px]' )}>
+            <div className='flex flex-col gap-[5px] lg:w-2/3 w-full '>
                 <span className='font-bold'>{`Комментарии к ${title}:`}</span>
                 {comments.length > 0 && comments.sort((a, b) => new Date(a.date) - new Date(b.date)).map((comment, i) => {
                     return (
-                        <div className='flex flex-col text-[#767676] text-[14px]' key={i}>
+                        <div className='flex flex-col text-[#767676] text-[9px] lg:text-[14px]' key={i}>
                             <span > 
                                 {comment.text}
                             </span>
@@ -43,19 +43,20 @@ export const Comments = ({
             <button 
               className="w-max items-center border border-gray-700 px-[10px] py-[5px] rounded bg-white self-end" 
               type='button'
-              onClick={() => setIsTextArea(!isTextarea)}
+              onClick={() => setActiveIndex(activeIndex === 0 ? index : 0)}
             >
-                {isTextarea ? <AiOutlineMinus /> : <BsPlusLg /> }
+                {activeIndex === index ? <AiOutlineMinus /> : <BsPlusLg /> }
                 
             </button>
             </div>
             
-            {isTextarea && (
+            {activeIndex === index && (
                 <textarea 
-                  className="w-2/3 h-[72px] rounded border-[#E9E9E9] border pl-3 pt-2  resize-none"
+                  className="w-2/3 h-[72px] rounded border-[#E9E9E9] border pl-3 pt-2 resize-none"
                   onChange={onChange}
                 />
             )}
+            
             {currentOrder && 
                 <Button 
                     type="button" 
@@ -63,7 +64,7 @@ export const Comments = ({
                     className='self-end'
                     callback={() => {
                         handleAddNewComment();
-                        setIsTextArea(false);
+                        setActiveIndex(0);
                     }}
                 />
             }

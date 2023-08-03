@@ -4,6 +4,7 @@ import { Approve } from "./Approve"
 import { Comments } from "./Comments"
 import { Input } from "./Input"
 import { InputFile } from "./InputFile"
+import AccessModel from '../Models/AccessModel.json';
 
 export const View1 = ({ 
     order, 
@@ -25,7 +26,7 @@ export const View1 = ({
                 name="concept"
                 type='text'
                 tag='textarea'
-                value={order.concept.text} 
+                defaultValue={order.concept.text} 
                 placeholder="Введите описание концепта"
                 labelStyle="flex justify-between items-center"
                 inputStyle="w-3/4 h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2 "
@@ -42,8 +43,8 @@ export const View1 = ({
                 formData={order}
                 setFormData={setOrder}
                 name={'concept'}
-                disabled={!userRole.includes('designer') && !userRole.includes('admin')}
-                usersArrayApprove={users.filter(el => el.role === 'executor_designer').map(el => el.telegramId)}
+                disabled={AccessModel.concept.change__role.every(el => !userRole.includes(el))}
+                usersArrayApprove={users.filter(el => AccessModel.concept.message__view__role.some(e => e === el.role)).map(el => el.telegramId)}
             />
             <Comments
                 className='self-end'
@@ -63,7 +64,7 @@ export const View1 = ({
                     name="functional"
                     type='text'
                     tag='textarea'
-                    value={order.functional.text}
+                    defaultValue={order.functional.text}
                     placeholder="Введите описание функционала"
                     labelStyle="flex justify-between items-center"
                     inputStyle="w-3/4 h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2"
@@ -74,8 +75,8 @@ export const View1 = ({
                     formData={order}
                     setFormData={setOrder}
                     name={'functional'}
-                    disabled={!userRole.includes('teh') && !userRole.includes('admin')}
-                    usersArrayApprove={users.filter(el => el.role === 'executor_teh').map(el => el.telegramId)}
+                    disabled={AccessModel.functional.change__role.every(el => !userRole.includes(el))}
+                    usersArrayApprove={users.filter(el => AccessModel.functional.message__view__role.some(e => e === el.role)).map(el => el.telegramId)}
                 />
 
                 <Comments
@@ -97,7 +98,7 @@ export const View1 = ({
                     name="research"
                     type='text'
                     tag='textarea'
-                    value={order.research.text}
+                    defaultValue={order.research.text}
                     handleChange={(e) => setOrder({ ...order, research: { ...order.research, text: e.target.value } })}
                     placeholder="Введите задание для Research"
                     labelStyle="flex justify-between items-center"
@@ -107,8 +108,8 @@ export const View1 = ({
                     formData={order}
                     setFormData={setOrder}
                     name={'research'}
-                    disabled={!userRole.includes('teh') && !userRole.includes('admin')}
-                    usersArrayApprove={users.filter(el => el.role === 'executor_teh').map(el => el.telegramId)}
+                    disabled={AccessModel.research.change__role.every(el => !userRole.includes(el))}
+                    usersArrayApprove={users.filter(el => AccessModel.research.message__view__role.some(e => e === el.role)).map(el => el.telegramId)}
                 />
 
                 <Comments
@@ -122,6 +123,7 @@ export const View1 = ({
                     setActiveIndex={setActiveIndex}
                     index={9}
                 />
-            </div></>
+            </div>
+        </>
     )
 }

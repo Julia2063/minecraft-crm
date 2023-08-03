@@ -5,6 +5,7 @@ import { Input } from "./Input";
 import { InputFile } from "./InputFile";
 import { PaymentStages } from "./PaymentStages";
 import { AppContext } from "../context/AppContext";
+import AccessModel from '../Models/AccessModel.json';
 
 export const View2 = ({
     order, 
@@ -35,8 +36,8 @@ export const View2 = ({
                     formData={order}
                     setFormData={setOrder}
                     name={'figma'}
-                    disabled={!userRole.includes('designer') && !userRole.includes('admin')}
-                    usersArrayApprove={users.filter(el => el.role === 'executor_designer').map(el => el.telegramId)}
+                    disabled={AccessModel.figma.change__role.every(el => !userRole.includes(el))}
+                    usersArrayApprove={users.filter(el => AccessModel.figma.message__view__role.some(e => e === el.role)).map(el => el.telegramId)}
                 />
             </div>
             <div className="border-b border-[#E9E9E9] pb-[20px] flex flex-col gap-[10px] relative">
@@ -46,7 +47,7 @@ export const View2 = ({
                     name="tz"
                     type='text'
                     tag='textarea'
-                    value={order.tz.text}
+                    defaultValue={order.tz.text}
                     placeholder="Введите текст Технического Задания"
                     labelStyle="flex justify-between items-center"
                     inputStyle="w-3/4 h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2" />
@@ -55,8 +56,8 @@ export const View2 = ({
                     formData={order}
                     setFormData={setOrder}
                     name={'tz'}
-                    disabled={!userRole.includes('teh') && !userRole.includes('admin')}
-                    usersArrayApprove={users.filter(el => el.role === 'executor_tex').map(el => el.telegramId)}
+                    disabled={AccessModel.tz.change__role.every(el => !userRole.includes(el))}
+                    usersArrayApprove={users.filter(el => AccessModel.tz.message__view__role.some(e => e === el.role)).map(el => el.telegramId)}
                     
                 />
                 <Comments
@@ -78,7 +79,7 @@ export const View2 = ({
                     name="plan"
                     type='text'
                     tag='textarea'
-                    value={order.plan.text}
+                    defaultValue={order.plan.text}
                     placeholder="Опишите план работ"
                     labelStyle="flex justify-between items-center"
                     inputStyle="w-3/4 h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2 disabled:opacity-50" />
@@ -87,8 +88,8 @@ export const View2 = ({
                     formData={order}
                     setFormData={setOrder}
                     name={'plan'}
-                    disabled={!userRole.includes('teh') && !userRole.includes('admin')}
-                    usersArrayApprove={users.filter(el => el.role === 'executor_teh').map(el => el.telegramId)}
+                    disabled={AccessModel.plan.change__role.every(el => !userRole.includes(el))}
+                    usersArrayApprove={users.filter(el => AccessModel.plan.message__view__role.some(e => e === el.role)).map(el => el.telegramId)}
                     />
                 <Comments
                     className='self-end'
@@ -104,8 +105,8 @@ export const View2 = ({
             </div>
             <div className="border-b border-[#E9E9E9] pb-[20px] flex flex-col gap-[10px] relative">
             <label className="flex justify-between items-center">
-                    <span className="font-bold">Контент link</span>
-                    <div className="w-3/4 h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2"
+                <span className="font-bold">Контент link</span>
+                <div className="w-3/4 h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2"
                 >
                     {order.content.text.length > 0 && (
                         <a href={order.content.text} target="_blank">ссылка</a>
@@ -125,8 +126,8 @@ export const View2 = ({
                     formData={order}
                     setFormData={setOrder}
                     name={'content'}
-                    disabled={!userRole.includes('teh') && !userRole.includes('admin')}
-                    usersArrayApprove={users.filter(el => el.role === 'executor_teh').map(el => el.telegramId)}
+                    disabled={AccessModel.content.change__role.every(el => !userRole.includes(el))}
+                    usersArrayApprove={users.filter(el => AccessModel.content.message__view__role.some(e => e === el.role)).map(el => el.telegramId)}
                     /> 
             
 
@@ -152,7 +153,7 @@ export const View2 = ({
                         name="price"
                         type='number'
                         tag='input'
-                        value={order.price}
+                        defaultValue={order.price}
                         labelStyle="flex-col w-full"
                         inputStyle="w-full h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2"
                         min={0}
@@ -161,8 +162,8 @@ export const View2 = ({
                         formData={order}
                         setFormData={setOrder}
                         name={'price'}
-                        disabled={!userRole.includes('financier') && !userRole.includes('admin')}
-                        usersArrayApprove={users.filter(el => el.role === 'executor_financier').map(el => el.telegramId)}
+                        disabled={AccessModel.price.change__role.every(el => !userRole.includes(el))}
+                        usersArrayApprove={users.filter(el => AccessModel.price.message__view__role.some(e => e === el.role)).map(el => el.telegramId)}
                         down />
                 </label>
 
@@ -176,15 +177,15 @@ export const View2 = ({
                         name="end"
                         type='date'
                         tag='input'
-                        value={order.end.text}
+                        defaultValue={order.end.text}
                         labelStyle="flex-col w-full"
                         inputStyle="w-full h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2" />
                     <Approve
                         formData={order}
                         setFormData={setOrder}
                         name={'end'}
-                        disabled={!userRole.includes('financier') && !userRole.includes('admin')}
-                        usersArrayApprove={users.filter(el => el.role === 'executor_financier').map(el => el.telegramId)} 
+                        disabled={AccessModel.end.change__role.every(el => !userRole.includes(el))}
+                        usersArrayApprove={users.filter(el => AccessModel.end.message__view__role.some(e => e === el.role)).map(el => el.telegramId)}
                         down />
                 </label>
             </div>
@@ -197,11 +198,11 @@ export const View2 = ({
                     file
                 />
                 <Approve 
-                formData={order}
-                setFormData={setOrder}
-                name='contract'
-                disabled={!userRole.includes('financier') && !userRole.includes('admin')}
-                usersArrayApprove={users.filter(el => el.role === 'executor_financier').map(el => el.telegramId)} 
+                    formData={order}
+                    setFormData={setOrder}
+                    name='contract'
+                    disabled={AccessModel.contract.change__role.every(el => !userRole.includes(el))}
+                    usersArrayApprove={users.filter(el => AccessModel.contract.message__view__role.some(e => e === el.role)).map(el => el.telegramId)}
               />
                <Comments
                 className='self-end' 
@@ -222,17 +223,19 @@ export const View2 = ({
                     title='Стадии предоплат'
                     order={order}
                     setOrder={setOrder} />
-            </div><div>
+            </div>
+            <div>
                 <Input
                     disabled
                     title="Чел/Часы"
                     name="hh"
                     type='number'
                     tag='input'
-                    value={order.hh}
+                    defaultValue={order.hh}
                     labelStyle="flex-col w-1/3"
                     inputStyle="w-full h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2"
-                    min={0} />
+                    min={0} 
+                />
             </div>
         </>
     )

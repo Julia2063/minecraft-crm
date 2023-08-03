@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useContext } from 'react';
 
 import cn from 'classnames';
 import { updateFieldInDocumentInCollection } from '../helpers/firebaseControl';

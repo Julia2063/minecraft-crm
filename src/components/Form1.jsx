@@ -5,6 +5,7 @@ import { Comments } from "./Comments"
 import { Input } from "./Input"
 import { InputFile } from "./InputFile"
 import { AppContext } from "../context/AppContext"
+import AccessModel from '../Models/AccessModel.json';
 
 export const Form1 = ({
     order,
@@ -22,13 +23,11 @@ export const Form1 = ({
 
   const { users, userRole } = useContext(AppContext);
 
-  console.log(!userRole.includes('designer') && !userRole.includes('admin'))
-
   return (
     <form className="pt-6 flex flex-col gap-[20px]" onSubmit={handleSubmit}>
          <div className="border-b border-[#E9E9E9] pb-[20px] flex flex-col gap-[10px] relative">
               <Input 
-                disabled={order.concept.approve === 'yes' || order.concept.approve === 'wait'}
+                disabled={(order.concept.approve === 'yes' || order.concept.approve === 'wait') || AccessModel.concept.change__role.every(el => !userRole.includes(el)) }
                 name="concept"
                 type='text'
                 tag='textarea'
@@ -39,7 +38,7 @@ export const Form1 = ({
                 inputStyle="w-3/4 h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2 "
               />
               <InputFile
-                disabled={order.concept.approve === 'yes' || order.concept.approve === 'wait'}
+                disabled={(order.concept.approve === 'yes' || order.concept.approve === 'wait') || AccessModel.concept.change__role.every(el => !userRole.includes(el))}
                 title='Концепт'
                 name='concept'
                 handleChange={(e) => handleChangePhotos(e, 'concept')}
@@ -53,8 +52,8 @@ export const Form1 = ({
                 setFormData={setOrder}
                 name={'concept'}
                 getApprove={getApprove}
-                disabled={!userRole.includes('designer') && !userRole.includes('admin')}
-                usersArrayGetApprove={users.filter(el => el.role === 'customer_designer').map(el => el.telegramId)}
+                disabled={AccessModel.concept.change__role.every(el => !userRole.includes(el))}
+                usersArrayGetApprove={users.filter(el => AccessModel.concept.message__form__role.some(e => e === el.role)).map(el => el.telegramId)}
               />
               <Comments
                 className='self-end' 
@@ -68,7 +67,7 @@ export const Form1 = ({
         </div>
         <div className="border-b border-[#E9E9E9] pb-[20px] relative flex flex-col gap-[20px]">
             <Input
-                disabled={order.functional.approve === 'yes' || order.functional.approve === 'wait'}
+                disabled={(order.functional.approve === 'yes' || order.functional.approve === 'wait') || AccessModel.functional.change__role.every(el => !userRole.includes(el)) }
                 title="Функционал"
                 name="functional"
                 type='text'
@@ -85,8 +84,8 @@ export const Form1 = ({
                 setFormData={setOrder}
                 name={'functional'}
                 getApprove={getApprove}
-                disabled={!userRole.includes('teh') && !userRole.includes('admin')}
-                usersArrayGetApprove={users.filter(el => el.role === 'customer_teh').map(el => el.telegramId)}
+                disabled={AccessModel.functional.change__role.every(el => !userRole.includes(el))}
+                usersArrayGetApprove={users.filter(el => AccessModel.functional.message__form__role.some(e => e === el.role)).map(el => el.telegramId)}
               />
 
             <Comments
@@ -102,7 +101,7 @@ export const Form1 = ({
 
         <div className="flex flex-col gap-[10px] relative">
               <Input 
-                disabled={order.research.approve === 'yes' || order.research.approve === 'wait'}
+                disabled={(order.research.approve === 'yes' || order.research.approve === 'wait') || AccessModel.research.change__role.every(el => !userRole.includes(el)) }
                 title="Research"
                 name="research"
                 type='text'
@@ -119,8 +118,8 @@ export const Form1 = ({
                 setFormData={setOrder}
                 name={'research'}
                 getApprove={getApprove}
-                disabled={!userRole.includes('teh') && !userRole.includes('admin')}
-                usersArrayGetApprove={users.filter(el => el.role === 'customer_teh').map(el => el.telegramId)}
+                disabled={AccessModel.research.change__role.every(el => !userRole.includes(el))}
+                usersArrayGetApprove={users.filter(el => AccessModel.research.message__form__role.some(e => e === el.role)).map(el => el.telegramId)}
               />
 
               <Comments

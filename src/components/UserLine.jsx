@@ -3,7 +3,7 @@ import { Button } from "./Button";
 import { RoleModal } from "./RoleModal";
 import { RoleModel } from "../Models/UserModel";
 
-export const UserLine = ({ data, openModal, i }) => {
+export const UserLine = ({ data, i }) => {
 
     const [isRoleModal, setIsRoleModal] = useState(false);
     const getRole = () => {

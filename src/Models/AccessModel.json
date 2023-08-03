@@ -1,0 +1,85 @@
+{
+    "concept": {
+        "message__form__role": ["customer_designer"],
+        "show__role": ["admin", "customer"],
+        "change__role": ["admin", "designer"],
+        "message__view__role": ["executor_designer"]
+    },
+    
+    "functional": {
+        "message__form__role": ["customer_designer"],
+        "show__role": ["admin", "customer"],
+        "change__role": ["admin", "designer"],
+        "message__view__role": ["executor_designer"]
+    },
+
+    "research": {
+        "message__form__role": ["customer_designer"],
+        "show__role": ["admin", "customer"],
+        "change__role": ["admin", "designer"],
+        "message__view__role": ["executor_designer"]
+    },
+
+    "figma": {
+        "message__form__role": ["customer_designer"],
+        "show__role": ["admin", "customer"],
+        "change__role": ["admin", "designer"],
+        "message__view__role": ["executor_designer"]
+    },
+
+    "tz": {
+        "message__form__role": ["customer_designer"],
+        "show__role": ["admin", "customer"],
+        "change__role": ["admin", "designer"],
+        "message__view__role": ["executor_designer"]
+    },
+
+    "plan": {
+        "message__form__role": ["customer_designer"],
+        "show__role": ["admin", "customer"],
+        "change__role": ["admin", "designer"],
+        "message__view__role": ["executor_designer"]
+    },
+
+    "content": {
+        "message__form__role": ["customer_designer"],
+        "show__role": ["admin", "customer"],
+        "change__role": ["admin", "designer"],
+        "message__view__role": ["executor_designer"]
+    },
+
+    "price": {
+        "message__form__role": ["customer_designer"],
+        "show__role": ["admin", "customer"],
+        "change__role": ["admin", "designer"],
+        "message__view__role": ["executor_designer"]
+    },
+
+    "end": {
+        "message__form__role": ["customer_designer"],
+        "show__role": ["admin", "customer"],
+        "change__role": ["admin", "designer"],
+        "message__view__role": ["executor_designer"]
+    },
+
+    "contract": {
+        "message__form__role": ["customer_designer"],
+        "show__role": ["admin", "customer"],
+        "change__role": ["admin", "designer"],
+        "message__view__role": ["executor_designer"]
+    },
+
+    "paymentStages ": {
+        "message__form__role": ["customer_designer"],
+        "show__role": ["admin", "customer"],
+        "change__role": ["admin", "designer"],
+        "message__view__role": ["executor_designer"]
+    },
+
+    "hh": {
+        "message__form__role": ["customer_designer"],
+        "show__role": ["admin", "customer"],
+        "change__role": ["admin", "designer"],
+        "message__view__role": ["executor_designer"]
+    }
+}

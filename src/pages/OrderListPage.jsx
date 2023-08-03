@@ -103,7 +103,7 @@ function OrderListPage() {
                     <TableHeader />
                       {orders.filter(el => el.active).map((el, i) => (
                         
-                      <OrderLine i={i} data={el}/>
+                      <OrderLine i={i} data={el} key={el.id}/>
                     
                       ))}
                   </div>

@@ -59,7 +59,7 @@ export const RoleModal = ({ isOpen, closeModal, email, userRole, id }) => {
               </option>
               {RoleModel.map(el => {
                 return (
-                    <option value={el.key}>{el.name}</option>
+                    <option value={el.key} key={el.key}>{el.name}</option>
                 )
               })}
             </select>

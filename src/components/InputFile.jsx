@@ -48,7 +48,7 @@ export const InputFile = ({
 
                         array.map((el, i) => {
                           return (
-                            <div className='relative'>
+                            <div className='relative' key={el}>
                             <a href={el} target='_blanc' className='border-2 border-[#000] h-[40px] w-[40px] rounded flex items-center justify-center'>
                               <GrDocumentPdf/>
                               

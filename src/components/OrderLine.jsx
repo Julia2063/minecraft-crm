@@ -1,7 +1,3 @@
-import { useContext } from "react";
-import { AppContext } from "../context/AppContext";
-
-
 import { GrClose } from 'react-icons/gr';
 
 import { handleDelete } from "../helpers/firebaseControl";
@@ -32,9 +28,9 @@ export const OrderLine = ({ i, data }) => {
         </div>
         <div className="w-1/4 flex items-center justify-center gap-[5px]">
           
-            {data.concept.files.map(el => {
+            {data.concept.files.map((el, i) => {
               return (
-                <div className="h-[50px] w-[40px]" >
+                <div className="h-[50px] w-[40px]" key={i}>
                   <img src={el} alt="img" className="object-cover w-full h-full"/>
                 </div> 
               )

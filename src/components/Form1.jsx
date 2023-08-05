@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { Approve } from "./Approve"
 import { Button } from "./Button"
 import { Comments } from "./Comments"
@@ -6,6 +6,10 @@ import { Input } from "./Input"
 import { InputFile } from "./InputFile"
 import { AppContext } from "../context/AppContext"
 import AccessModel from '../Models/AccessModel.json';
+
+
+import Modal from "react-modal";
+import { IoMdClose } from "react-icons/io"
 
 export const Form1 = ({
     order,
@@ -18,125 +22,184 @@ export const Form1 = ({
     handleDeletePhoto,
     getApprove,
     activeIndex,
-    setActiveIndex
+    setActiveIndex,
+    handleAddNewComment,
+    handleChangeStageWithCondition,
+    handleChangeStage
 }) => {
 
   const { users, userRole } = useContext(AppContext);
 
+
+  const [isWarningModal, setIsWarningModal] = useState(false);
+
   return (
+    <>
     <form className="pt-6 flex flex-col gap-[20px]" onSubmit={handleSubmit}>
-         <div className="border-b border-[#E9E9E9] pb-[20px] flex flex-col gap-[10px] relative">
-              <Input 
-                disabled={(order.concept.approve === 'yes' || order.concept.approve === 'wait') || AccessModel.concept.change__role.every(el => !userRole.includes(el)) }
-                name="concept"
-                type='text'
-                tag='textarea'
-                value={order.concept.text} 
-                handleChange={handleChange}
-                placeholder="Введите описание концепта"
-                labelStyle="flex justify-between items-center"
-                inputStyle="w-3/4 h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2 "
-              />
-              <InputFile
-                disabled={(order.concept.approve === 'yes' || order.concept.approve === 'wait') || AccessModel.concept.change__role.every(el => !userRole.includes(el))}
-                title='Концепт'
-                name='concept'
-                handleChange={(e) => handleChangePhotos(e, 'concept')}
-                array={order.concept.files}
-                handleDeletePhoto={handleDeletePhoto}
-              />
-            
-              
-              <Approve 
-                formData={order}
-                setFormData={setOrder}
-                name={'concept'}
-                getApprove={getApprove}
-                disabled={AccessModel.concept.change__role.every(el => !userRole.includes(el))}
-                usersArrayGetApprove={users.filter(el => AccessModel.concept.message__form__role.some(e => e === el.role)).map(el => el.telegramId)}
-              />
-              <Comments
-                className='self-end' 
-                title='Концепту'
-                comments={order.concept.comments}
-                onChange={(e) => setNewComment({...newComment, concept: e.target.value})}
-                activeIndex={activeIndex}
-                setActiveIndex={setActiveIndex}
-                index={5}
-              />
+      <div className="border-b border-[#333232] pb-[20px] flex flex-col gap-[10px] relative">
+        <div className="flex justify-between">
+          <span className="font-bold lg:text-[20px] text-[16px]">Концепт</span>
+          <Approve
+            formData={order}
+            setFormData={setOrder}
+            name={'concept'}
+            getApprove={getApprove}
+            disabled={AccessModel.concept.change__role.every(el => !userRole.includes(el))}
+            usersArrayGetApprove={users.filter(el => AccessModel.concept.message__form__role.some(e => e === el.role)).map(el => el.telegramId)} 
+            usersArrayApprove={users.filter(el => AccessModel.concept.message__view__role.some(e => e === el.role)).map(el => el.telegramId)}
+          />
         </div>
-        <div className="border-b border-[#E9E9E9] pb-[20px] relative flex flex-col gap-[20px]">
-            <Input
-                disabled={(order.functional.approve === 'yes' || order.functional.approve === 'wait') || AccessModel.functional.change__role.every(el => !userRole.includes(el)) }
-                title="Функционал"
-                name="functional"
-                type='text'
-                tag='textarea'
-                value={order.functional.text} 
-                handleChange={handleChange}
-                placeholder="Введите описание функционала"
-                labelStyle="flex justify-between items-center"
-                inputStyle="w-3/4 h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2 disabled:opacity-50"
-            />
+        <Input
+          disabled={(order.concept.approve === 'yes' || order.concept.approve === 'wait') || AccessModel.concept.change__role.every(el => !userRole.includes(el))}
+          name="concept"
+          type='text'
+          tag='textarea'
+          value={order.concept.text}
+          handleChange={handleChange}
+          placeholder="Введите описание концепта"
+          labelStyle="flex justify-between items-center"
+          inputStyle="w-3/4 h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2 " />
+        <InputFile
+          disabled={(order.concept.approve === 'yes' || order.concept.approve === 'wait') || AccessModel.concept.change__role.every(el => !userRole.includes(el))}
+          title='Концепт'
+          name='concept'
+          handleChange={(e) => handleChangePhotos(e, 'concept')}
+          array={order.concept.files}
+          handleDeletePhoto={handleDeletePhoto} />
+        <Comments
+          className='self-end'
+          title='Концепту'
+          comments={order.concept.comments}
+          onChange={(e) => setNewComment({ ...newComment, concept: e.target.value })}
+          handleAddNewComment={() => handleAddNewComment('concept')}
+          activeIndex={activeIndex}
+          setActiveIndex={setActiveIndex}
+          index={5} />
+      </div>
+      <div className="border-b border-[#333232] pb-[20px] relative flex flex-col gap-[20px]">
+        <div className="flex justify-between">
+          <span className="font-bold lg:text-[20px] text-[16px]">Функционал</span>
+          <Approve
+            formData={order}
+            setFormData={setOrder}
+            name={'functional'}
+            getApprove={getApprove}
+            disabled={AccessModel.functional.change__role.every(el => !userRole.includes(el))}
+            usersArrayGetApprove={users.filter(el => AccessModel.functional.message__form__role.some(e => e === el.role)).map(el => el.telegramId)}
+            usersArrayApprove={users.filter(el => AccessModel.functional.message__view__role.some(e => e === el.role)).map(el => el.telegramId)}
+          />
 
-            <Approve 
-                formData={order}
-                setFormData={setOrder}
-                name={'functional'}
-                getApprove={getApprove}
-                disabled={AccessModel.functional.change__role.every(el => !userRole.includes(el))}
-                usersArrayGetApprove={users.filter(el => AccessModel.functional.message__form__role.some(e => e === el.role)).map(el => el.telegramId)}
-              />
-
-            <Comments
-                className='self-end' 
-                title='функционалу'
-                comments={order.functional.comments}
-                onChange={(e) => setNewComment({...newComment, functional: e.target.value})}
-                activeIndex={activeIndex}
-                setActiveIndex={setActiveIndex}
-                index={6}
-              />
         </div>
 
-        <div className="flex flex-col gap-[10px] relative">
-              <Input 
-                disabled={(order.research.approve === 'yes' || order.research.approve === 'wait') || AccessModel.research.change__role.every(el => !userRole.includes(el)) }
-                title="Research"
-                name="research"
-                type='text'
-                tag='textarea'
-                value={order.research.text} 
-                handleChange={(e) => setOrder({...order, research: {...order.research, text: e.target.value }})}
-                placeholder="Введите задание для Research"
-                labelStyle="flex justify-between items-center"
-                inputStyle="w-3/4 h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2 disabled:opacity-50"
-              />  
 
-              <Approve 
-                formData={order}
-                setFormData={setOrder}
-                name={'research'}
-                getApprove={getApprove}
-                disabled={AccessModel.research.change__role.every(el => !userRole.includes(el))}
-                usersArrayGetApprove={users.filter(el => AccessModel.research.message__form__role.some(e => e === el.role)).map(el => el.telegramId)}
-              />
+        <Input
+          disabled={(order.functional.approve === 'yes' || order.functional.approve === 'wait') || AccessModel.functional.change__role.every(el => !userRole.includes(el))}
+          title="Функционал"
+          name="functional"
+          type='text'
+          tag='textarea'
+          value={order.functional.text}
+          handleChange={handleChange}
+          placeholder="Введите описание функционала"
+          labelStyle="flex justify-between items-center"
+          inputStyle="w-3/4 h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2 disabled:opacity-50" />
+        <Comments
+          className='self-end'
+          title='функционалу'
+          comments={order.functional.comments}
+          onChange={(e) => setNewComment({ ...newComment, functional: e.target.value })}
+          handleAddNewComment={() => handleAddNewComment('functional')}
+          activeIndex={activeIndex}
+          setActiveIndex={setActiveIndex}
+          index={6} />
+      </div>
 
-              <Comments
-                className='self-end' 
-                title='Research'
-                comments={order.research.comments}
-                onChange={(e) => setNewComment({...newComment, research: e.target.value})}
-                activeIndex={activeIndex}
-                setActiveIndex={setActiveIndex}
-                index={7}
-              />
+      <div className="flex flex-col gap-[10px] relative">
+        <div className="flex justify-between">
+          <span className="font-bold lg:text-[20px] text-[16px]">Research</span>
+          <Approve
+            formData={order}
+            setFormData={setOrder}
+            name={'research'}
+            getApprove={getApprove}
+            disabled={AccessModel.research.change__role.every(el => !userRole.includes(el))}
+            usersArrayGetApprove={users.filter(el => AccessModel.research.message__form__role.some(e => e === el.role)).map(el => el.telegramId)}
+            usersArrayApprove={users.filter(el => AccessModel.research.message__view__role.some(e => e === el.role)).map(el => el.telegramId)}
+          />
         </div>
+        <Input
+          disabled={(order.research.approve === 'yes' || order.research.approve === 'wait') || AccessModel.research.change__role.every(el => !userRole.includes(el))}
+          title="Research"
+          name="research"
+          type='text'
+          tag='textarea'
+          value={order.research.text}
+          handleChange={(e) => setOrder({ ...order, research: { ...order.research, text: e.target.value } })}
+          placeholder="Введите задание для Research"
+          labelStyle="flex justify-between items-center"
+          inputStyle="w-3/4 h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2 disabled:opacity-50" />
+
+        <Comments
+          className='self-end'
+          title='Research'
+          comments={order.research.comments}
+          onChange={(e) => setNewComment({ ...newComment, research: e.target.value })}
+          handleAddNewComment={() => handleAddNewComment('research')}
+          activeIndex={activeIndex}
+          setActiveIndex={setActiveIndex}
+          index={7} />
+      </div>
+      <div className="flex justify-between">
+        {order.stage < 3 && (
+          <Button
+            type="button"
+            label='Перейти далее'
+            className="bg-[#7364f7] hover:bg-[#4531f5]" 
+            callback={() => handleChangeStageWithCondition(() => setIsWarningModal(true), '3', (order.concept.approve === 'yes' && order.functional.approve === 'yes' && order.research.approve === 'yes'))}
+         />
+        )}
+        
         <Button
-              type="submit" 
-              label='Сохранить изменения' 
-              className='self-end'
-            /> 
+          type="submit"
+          label='Сохранить изменения'
+        />
+      </div>
+
     </form>
+    <Modal
+      isOpen={isWarningModal}
+      onRequestClose={() => setIsWarningModal(false)}
+      shouldCloseOnOverlayClick={true}
+      className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#FAFAFA] w-screen lg:w-max h-max rounded-lg shadow-md p-5 z-50 flex flex-col gap-[40px] items-center"
+      overlayClassName="fixed inset-0 bg-black bg-opacity-50"
+      autoFocus={false}
+      ariaHideApp={false}
+    >
+        <button
+          type="button"
+          className="absolute top-[10px] right-[10px] h-[30px] w-[30px] w-max items-center px-[10px] rounded bg-white text-black flex items-center justify-center z-50"
+          onClick={() => setIsWarningModal(false)}
+        >
+          <IoMdClose />
+        </button>
+        <div className='font-bold lg:text-[20px] text-[14px] flex flex-col gap-[10px] items-center'>
+            <p>
+              Для оновления данных необходимо сохранить изменения.
+            </p>
+            <p>
+              Для перехода далее необходимо получить одобрение всех пунктов. Все равно перейти?
+            </p>
+          </div>
+
+        <Button
+          type="button"
+          label='ДA'
+          callback={() => {
+            handleChangeStage('3');
+            setIsWarningModal(false);
+          } } />
+
+    </Modal>
+    </>
   )
 }

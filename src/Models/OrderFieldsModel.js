@@ -28,7 +28,7 @@ export const OrderFieldsModel = [
         name: 'Контент'
     },
     {
-        key: 'Price',
+        key: 'price',
         name: 'Итоговая цена'
     },
     {

@@ -36,11 +36,12 @@ export const PaymentStages = ({ title, order, setOrder, disabled, ...props }) =>
 
 
     return (
-        <div className='flex lg:gap-[40px] items-center lg:flex-row flex-col gap-[10px]'>
+        <div className='flex lg:gap-[40px] lg:items-center lg:flex-row flex-col gap-[10px]'>
  
-            <span className="font-bold">{title}</span>
+            <span className="font-bold lg:text-[20px] text-[16px]">{title}</span>
 
-            <button 
+            {Object.values(order.paymentStages).every(el => !el.success) && (
+                <button 
               className="w-max items-center border border-gray-700 px-[10px] py-[5px] rounded bg-white" 
               type='button'
               onClick={() => {
@@ -53,6 +54,8 @@ export const PaymentStages = ({ title, order, setOrder, disabled, ...props }) =>
                <BsPlusLg /> 
                 
             </button>
+            )}
+            
 
             {Object.entries(order.paymentStages).slice(0, -1).map((el, i) => {
                 return (
@@ -84,7 +87,7 @@ export const PaymentStages = ({ title, order, setOrder, disabled, ...props }) =>
                         <span>%</span>
                     </label>
 
-                {Object.keys(order.paymentStages).length > 1 && (
+                {(Object.keys(order.paymentStages).length > 1 && Object.values(order.paymentStages).every(el => !el.success))  && (
                     <button 
                         className="w-max items-center border border-gray-700 px-[10px] py-[5px] rounded bg-white" 
                         type='button'

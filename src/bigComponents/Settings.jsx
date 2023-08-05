@@ -1,21 +1,12 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
-import { db } from "../firebase";
 import { UserTableHeader } from "../components/UsersTableHeader";
 import { UserLine } from "../components/UserLine";
-import { logOut } from "../helpers/firebaseControl";
 
-import { FiLogOut } from 'react-icons/fi';
 import { SettingsForm } from "../components/SettingsForm";
 
 export const Settings = () => {
-    const { user, users, userRole, setUser, setUserRole} = useContext(AppContext);
-
-    const handleLogOut = () => {
-        logOut();
-        setUser(null);
-        setUserRole('');
-      };
+    const { user, users, userRole} = useContext(AppContext);
 
     return (
         <div className='flex w-full flex-col items-center justify-center py-[20px] gap-[20px] p-[15px] lg:p-[40px] md:p-[60px]' >
@@ -31,16 +22,7 @@ export const Settings = () => {
               />
             ))}
           </div>
-          
         )}
-
-          <button 
-            className='flex gap-[10px] items-center'
-            onClick={handleLogOut}
-          >
-            <span>Выйти</span>  
-            <FiLogOut />
-          </button>
         </div>
     )
 }

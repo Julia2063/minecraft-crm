@@ -1,4 +1,7 @@
 
+import cn from 'classnames';
+
+
 export const Input = ({ 
     title, 
     name, 
@@ -7,16 +10,18 @@ export const Input = ({
     disabled, 
     labelStyle, 
     inputStyle,
+    isAddWork,
     ...props
 }) => {
   return (
-    <label className={labelStyle}>
-      <span className="font-bold">{title}</span>
+    <label className={tag === 'textarea' ? 'flex flex-col gap-[5px]' : labelStyle}>
+      <span className={cn("font-bold ", {'text-[14px]': tag === 'textarea', 'lg:text-[20px] text-[16px]': tag !== 'textarea' && !isAddWork})} >
+        {tag === 'textarea' ? 'Описание': title}
+      </span>
       {tag === 'input' ? (
         <input
             name={name}
             onChange={handleChange}
-          
             className={inputStyle}
             disabled={disabled}
             {...props}
@@ -25,7 +30,7 @@ export const Input = ({
         <textarea 
             name={name}
             onChange={handleChange}
-            className="w-3/4 h-[72px] rounded border-[#E9E9E9] border pl-3 mt-2 resize-none  disabled:opacity-50"
+            className={cn("h-[72px] rounded border-[#E9E9E9] border pl-3 resize-none  disabled:opacity-50", {'lg:w-3/4 w-full': isAddWork, 'w-full': !isAddWork})} 
             disabled={disabled}
             {...props}
         />

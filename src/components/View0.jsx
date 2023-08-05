@@ -9,9 +9,11 @@ export const View0 = ({
     activeIndex,
     setActiveIndex
 }) => {
+
+    console.log(order.priority)
     return (
         <>
-          <div className="border-b border-[#E9E9E9] pb-[20px]">
+          <div className="border-b border-[#333232] pb-[20px]">
             <Input
                 disabled
                 title="Название"
@@ -20,12 +22,12 @@ export const View0 = ({
                 tag='input'
                 defaultValue={order.title}
                 placeholder="Введите название"
-                labelStyle="flex justify-between items-center"
-                inputStyle="w-3/4 h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2" />
+                labelStyle="flex lg:flex-row justify-between lg:items-center flex-col"
+                inputStyle="lg:w-3/4 w-full h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2" />
           </div>
-          <div className="border-b border-[#E9E9E9] pb-[20px]">
-            <label className="flex justify-between items-center">
-                <span className="font-bold">Реф link</span>
+          <div className="border-b border-[#333232] pb-[20px]">
+            <label className="flex lg:flex-row flex-col justify-between lg:items-center">
+                <span className="font-bold lg:text-[20px] text-[16px]">Реф link</span>
                 <div className="w-3/4 h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2"
             >
                 {order.ref.length > 0 && 
@@ -36,10 +38,10 @@ export const View0 = ({
             </label>
             
           </div>
-            <div className="border-b border-[#E9E9E9] pb-[20px] flex flex-col gap-[10px]">
+            <div className="border-b border-[#333232] pb-[20px] flex flex-col gap-[10px]">
+                <span className="font-bold lg:text-[20px] text-[16px]">Техническое задание</span>
                 <Input
                     disabled
-                    title="ТЗ"
                     name="tz"
                     type='text'
                     tag='textarea'
@@ -58,7 +60,9 @@ export const View0 = ({
                     setActiveIndex={setActiveIndex}
                     index={3}
                 />
-            </div><div className="border-b border-[#E9E9E9] pb-[20px] flex flex-col gap-[10px]">
+            </div>
+            <div className="border-b border-[#333232] pb-[20px] flex flex-col gap-[10px]">
+                <span className="font-bold lg:text-[20px] text-[16px]">Research</span>
                 <Input
                     disabled
                     title="Research"
@@ -82,20 +86,21 @@ export const View0 = ({
                 />
             </div>
 
-            <div className="border-b border-[#E9E9E9] pb-[20px]">
-              <Input 
-                title="Подписка"
-                name="subscribe"
-                type='text'
-                tag='textarea'
-                defaultValue={order.subscribe} 
-                placeholder="Введите подписку"
-                labelStyle="flex justify-between items-center"
-                inputStyle="w-3/4 h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2"
-              />
+            <div className="border-b border-[#333232] pb-[20px]">
+                <span className="font-bold lg:text-[20px] text-[16px]">Подписка</span>
+                <Input 
+                    title="Подписка"
+                    name="subscribe"
+                    type='text'
+                    tag='textarea'
+                    defaultValue={order.subscribe} 
+                    placeholder="Введите подписку"
+                    labelStyle="flex justify-between items-center"
+                    inputStyle="w-3/4 h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2"
+                />
             </div>
             
-            <div className="border-b border-[#E9E9E9] pb-[20px] flex flex-col gap-[10px] mt-2">
+            <div className="border-b border-[#333232] pb-[20px] flex flex-col gap-[10px] mt-2">
                 <Input
                     disabled
                     title="Желаемые сроки (в неделях)"
@@ -105,9 +110,10 @@ export const View0 = ({
                     defaultValue={order.desiredDates}
                     labelStyle="flex-col w-2/3"
                     inputStyle="w-full h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2"
-                    min={0} />
+                    min={0} 
+                />
             </div>
-            <div className="flex flex-row gap-[20px] mt-2">
+            <div className="flex flex-col lg:flex-row gap-[20px] mt-2">
                 <Input
                     disabled
                     title="Желаемая цена"
@@ -115,21 +121,22 @@ export const View0 = ({
                     type='number'
                     tag='input'
                     defaultValue={order.desiredPrice}
-                    labelStyle="flex-col w-1/3"
+                    labelStyle="flex-col lg:w-1/3 w2/3"
                     inputStyle="w-full h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2"
                     min={0}
                     step="0.01" 
                 />
-                <label className="flex-col w-1/3">
-                    <span className="font-bold">Приоритет</span>
-                    <div >
-                        <input
+                <label className="flex-col lg:w-1/3 w2/3 ">
+                    <span className="font-bold  lg:text-[20px] text-[16px]">Приоритет</span>
+                    <div className="w-full h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2 leading-[36px]">
+                        {order.priority}
+                        {/* <input
                             disabled
                             name="priority"
                             type="text"
-                            defaultValue={order.priority}
-                            className="w-full h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2"
-                        />
+                            value={order.priority}
+                            
+                        /> */}
                     </div>
                 </label>
             </div>

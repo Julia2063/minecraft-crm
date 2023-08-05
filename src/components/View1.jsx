@@ -19,8 +19,18 @@ export const View1 = ({
     const {users, userRole} = useContext(AppContext);
     
     return (
-        <>
-        <div className="border-b border-[#E9E9E9] pb-[20px] flex flex-col gap-[10px] relative">
+        <div className="flex flex-col gap-[20px]">
+        <div className="border-b  border-[#333232] pb-[20px] flex flex-col gap-[10px] relative">
+        <div className="flex justify-between">
+              <span className="font-bold lg:text-[20px] text-[16px]">Концепт</span>
+              <Approve
+                formData={order}
+                setFormData={setOrder}
+                name={'concept'}
+                disabled={AccessModel.concept.change__role.every(el => !userRole.includes(el))}
+                usersArrayApprove={users.filter(el => AccessModel.concept.message__view__role.some(e => e === el.role)).map(el => el.telegramId)}
+             />
+        </div>
         <Input 
                 disabled
                 name="concept"
@@ -39,13 +49,7 @@ export const View1 = ({
             />
 
 
-            <Approve
-                formData={order}
-                setFormData={setOrder}
-                name={'concept'}
-                disabled={AccessModel.concept.change__role.every(el => !userRole.includes(el))}
-                usersArrayApprove={users.filter(el => AccessModel.concept.message__view__role.some(e => e === el.role)).map(el => el.telegramId)}
-            />
+           
             <Comments
                 className='self-end'
                 title='Концепту'
@@ -58,7 +62,17 @@ export const View1 = ({
                 index={10}
             />
         </div>
-        <div className="border-b border-[#E9E9E9] pb-[20px] relative flex flex-col gap-[20px]">
+        <div className="border-b border-[#333232] pb-[20px] relative flex flex-col gap-[20px]">
+            <div className="flex justify-between">
+                <span className="font-bold lg:text-[20px] text-[16px]">Функционал</span> 
+                <Approve
+                    formData={order}
+                    setFormData={setOrder}
+                    name={'functional'}
+                    disabled={AccessModel.functional.change__role.every(el => !userRole.includes(el))}
+                    usersArrayApprove={users.filter(el => AccessModel.functional.message__view__role.some(e => e === el.role)).map(el => el.telegramId)}
+                />
+            </div>
                 <Input
                     title="Функционал"
                     name="functional"
@@ -69,14 +83,6 @@ export const View1 = ({
                     labelStyle="flex justify-between items-center"
                     inputStyle="w-3/4 h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2"
                     disabled
-                />
-
-                <Approve
-                    formData={order}
-                    setFormData={setOrder}
-                    name={'functional'}
-                    disabled={AccessModel.functional.change__role.every(el => !userRole.includes(el))}
-                    usersArrayApprove={users.filter(el => AccessModel.functional.message__view__role.some(e => e === el.role)).map(el => el.telegramId)}
                 />
 
                 <Comments
@@ -92,6 +98,17 @@ export const View1 = ({
                  />
             </div>
             <div className="flex flex-col gap-[10px] relative">
+                <div className="flex justify-between">
+                    <span className="font-bold lg:text-[20px] text-[16px]">Research</span>
+                    <Approve
+                        formData={order}
+                        setFormData={setOrder}
+                        name={'research'}
+                        disabled={AccessModel.research.change__role.every(el => !userRole.includes(el))}
+                        usersArrayApprove={users.filter(el => AccessModel.research.message__view__role.some(e => e === el.role)).map(el => el.telegramId)}
+                    />
+
+                </div>
                 <Input
                     disabled
                     title="Research"
@@ -103,15 +120,6 @@ export const View1 = ({
                     placeholder="Введите задание для Research"
                     labelStyle="flex justify-between items-center"
                     inputStyle="w-3/4 h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2 disabled:opacity-50" />
-
-                <Approve
-                    formData={order}
-                    setFormData={setOrder}
-                    name={'research'}
-                    disabled={AccessModel.research.change__role.every(el => !userRole.includes(el))}
-                    usersArrayApprove={users.filter(el => AccessModel.research.message__view__role.some(e => e === el.role)).map(el => el.telegramId)}
-                />
-
                 <Comments
                     className='self-end'
                     title='Research'
@@ -124,6 +132,6 @@ export const View1 = ({
                     index={9}
                 />
             </div>
-        </>
+        </div>
     )
 }

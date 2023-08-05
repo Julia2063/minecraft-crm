@@ -19,28 +19,47 @@ export const View2 = ({
     const {users, userRole} = useContext(AppContext);
 
     return (
-        <>
-            <div className="border-b border-[#E9E9E9] pb-[20px] flex flex-col gap-[10px] relative">
+        <div className="flex flex-col gap-[20px]">
+            <div className="border-b border-[#333232] pb-[20px] flex flex-col gap-[10px] relative">
             
-                <label className="flex justify-between items-center">
-                    <span className="font-bold">Figma link</span>
-                    <div className="w-3/4 h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2"
+                <label className="flex flex-col justify-between">
+                <div className="flex justify-between">
+                    <span className="font-bold lg:text-[20px] text-[16px] opacity-0">Figma link</span>
+                    <Approve
+                        formData={order}
+                        setFormData={setOrder}
+                        name={'figma'}
+                        disabled={AccessModel.figma.change__role.every(el => !userRole.includes(el))}
+                        usersArrayApprove={users.filter(el => AccessModel.figma.message__view__role.some(e => e === el.role)).map(el => el.telegramId)}
+                    />
+                </div>
+                <div className="flex justify-between lg:flex-row flex-col">
+                    <span className="font-bold lg:text-[20px] text-[16px]">Figma link</span>
+                    <div className="lg:w-3/4 w-full h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2"
                 >
                     {order.figma.text.length > 0 && (
                         <a href={order.figma.text} target="_blank">ссылка</a>
                     )}
                     
                     </div>
+
+                </div>
+                
                 </label>
-                <Approve
+                
+            </div>
+            <div className="border-b border-[#333232] pb-[20px] flex flex-col gap-[10px] relative">
+            <div className="flex justify-between">
+              <span className="font-bold lg:text-[20px] text-[16px]">Тexническое задание</span>
+              <Approve
                     formData={order}
                     setFormData={setOrder}
-                    name={'figma'}
-                    disabled={AccessModel.figma.change__role.every(el => !userRole.includes(el))}
-                    usersArrayApprove={users.filter(el => AccessModel.figma.message__view__role.some(e => e === el.role)).map(el => el.telegramId)}
+                    name={'tz'}
+                    disabled={AccessModel.tz.change__role.every(el => !userRole.includes(el))}
+                    usersArrayApprove={users.filter(el => AccessModel.tz.message__view__role.some(e => e === el.role)).map(el => el.telegramId)}
+                    
                 />
             </div>
-            <div className="border-b border-[#E9E9E9] pb-[20px] flex flex-col gap-[10px] relative">
                 <Input
                     disabled
                     title="ТЗ"
@@ -52,14 +71,7 @@ export const View2 = ({
                     labelStyle="flex justify-between items-center"
                     inputStyle="w-3/4 h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2" />
 
-                <Approve
-                    formData={order}
-                    setFormData={setOrder}
-                    name={'tz'}
-                    disabled={AccessModel.tz.change__role.every(el => !userRole.includes(el))}
-                    usersArrayApprove={users.filter(el => AccessModel.tz.message__view__role.some(e => e === el.role)).map(el => el.telegramId)}
-                    
-                />
+                
                 <Comments
                     className='self-end'
                     title='ТЗ'
@@ -72,7 +84,18 @@ export const View2 = ({
                     index={15}
                 />
             </div>
-            <div className="border-b border-[#E9E9E9] pb-[20px] flex flex-col gap-[10px] relative">
+
+            <div className="border-b border-[#333232] pb-[20px] flex flex-col gap-[10px] relative">
+            <div className="flex justify-between">
+              <span className="font-bold lg:text-[20px] text-[16px]">План работ</span>
+              <Approve
+                    formData={order}
+                    setFormData={setOrder}
+                    name={'plan'}
+                    disabled={AccessModel.plan.change__role.every(el => !userRole.includes(el))}
+                    usersArrayApprove={users.filter(el => AccessModel.plan.message__view__role.some(e => e === el.role)).map(el => el.telegramId)}
+                    />
+            </div>
                 <Input
                     disabled
                     title="План работ"
@@ -84,13 +107,7 @@ export const View2 = ({
                     labelStyle="flex justify-between items-center"
                     inputStyle="w-3/4 h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2 disabled:opacity-50" />
 
-                <Approve
-                    formData={order}
-                    setFormData={setOrder}
-                    name={'plan'}
-                    disabled={AccessModel.plan.change__role.every(el => !userRole.includes(el))}
-                    usersArrayApprove={users.filter(el => AccessModel.plan.message__view__role.some(e => e === el.role)).map(el => el.telegramId)}
-                    />
+               
                 <Comments
                     className='self-end'
                     title='Плану работ'
@@ -103,16 +120,30 @@ export const View2 = ({
                     index={16}
                 />
             </div>
-            <div className="border-b border-[#E9E9E9] pb-[20px] flex flex-col gap-[10px] relative">
-            <label className="flex justify-between items-center">
-                <span className="font-bold">Контент link</span>
-                <div className="w-3/4 h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2"
+
+            <div className="border-b border-[#333232] pb-[20px] flex flex-col gap-[10px] relative">
+            <label className="flex flex-col gap-[10px]">
+            <div className="flex justify-between">
+              <span className="font-bold lg:text-[20px] text-[16px]">Контент</span>
+              <Approve
+                    formData={order}
+                    setFormData={setOrder}
+                    name={'content'}
+                    disabled={AccessModel.content.change__role.every(el => !userRole.includes(el))}
+                    usersArrayApprove={users.filter(el => AccessModel.content.message__view__role.some(e => e === el.role)).map(el => el.telegramId)}
+                    /> 
+            </div>
+            <div className="flex lg:flex-row flex-col justify-between">
+                 <span className="font-bold">link</span>
+                <div className="lg:w-3/4 w-full h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2"
                 >
                     {order.content.text.length > 0 && (
                         <a href={order.content.text} target="_blank">ссылка</a>
                     )}
                     
                     </div>
+            </div>
+               
                 </label>
                 <InputFile
                     disabled
@@ -122,18 +153,9 @@ export const View2 = ({
                 />
 
 
-                <Approve
-                    formData={order}
-                    setFormData={setOrder}
-                    name={'content'}
-                    disabled={AccessModel.content.change__role.every(el => !userRole.includes(el))}
-                    usersArrayApprove={users.filter(el => AccessModel.content.message__view__role.some(e => e === el.role)).map(el => el.telegramId)}
-                    /> 
-            
-
                 <Comments
                     className='self-end'
-                    title='Концепту'
+                    title='Контенту'
                     comments={order.content.comments}
                     onChange={(e) => setNewComment({ ...newComment, content: e.target.value })}
                     currentOrder
@@ -144,12 +166,21 @@ export const View2 = ({
                     
                     />
             </div>
-            <div className="flex flex-row gap-[20px] border-b border-[#E9E9E9] pb-[20px]">
-                {userRole.includes('financier') && (
-                <label className="relative w-1/2">
+            <div className="flex lg:flex-row flex-col gap-[20px] border-b border-[#333232] pb-[20px]">
+                {AccessModel.price.show__role.some(el => userRole.includes(el))  && (
+                <label className="relative lg:w-1/2 w-full">
+                    <div className="flex justify-between">
+                        <span className="font-bold lg:text-[20px] text-[16px]">Итоговая цена</span>
+                        <Approve
+                            formData={order}
+                            setFormData={setOrder}
+                            name={'price'}
+                            disabled={AccessModel.price.change__role.every(el => !userRole.includes(el))}
+                            usersArrayApprove={users.filter(el => AccessModel.price.message__view__role.some(e => e === el.role)).map(el => el.telegramId)}
+                        />
+                    </div>
                     <Input
                         disabled
-                        title="Итоговая цена"
                         name="price"
                         type='number'
                         tag='input'
@@ -158,38 +189,47 @@ export const View2 = ({
                         inputStyle="w-full h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2"
                         min={0}
                         step="0.01" />
-                    <Approve
-                        formData={order}
-                        setFormData={setOrder}
-                        name={'price'}
-                        disabled={AccessModel.price.change__role.every(el => !userRole.includes(el))}
-                        usersArrayApprove={users.filter(el => AccessModel.price.message__view__role.some(e => e === el.role)).map(el => el.telegramId)}
-                        down />
+                    
                 </label>
 
                 )}
                 
 
-                <label className="relative w-1/2">
+                <label className="relative lg:w-1/2 w-full">
+                    <div className="flex justify-between">
+                        <span className="font-bold lg:text-[20px] text-[16px]">Дата сдачи</span>
+                        <Approve
+                            formData={order}
+                            setFormData={setOrder}
+                            name={'end'}
+                            disabled={AccessModel.end.change__role.every(el => !userRole.includes(el))}
+                            usersArrayApprove={users.filter(el => AccessModel.end.message__view__role.some(e => e === el.role)).map(el => el.telegramId)}
+                        />
+                    </div>
                     <Input
                         disabled
-                        title="Дата сдачи"
                         name="end"
                         type='date'
                         tag='input'
                         defaultValue={order.end.text}
                         labelStyle="flex-col w-full"
                         inputStyle="w-full h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2" />
-                    <Approve
-                        formData={order}
-                        setFormData={setOrder}
-                        name={'end'}
-                        disabled={AccessModel.end.change__role.every(el => !userRole.includes(el))}
-                        usersArrayApprove={users.filter(el => AccessModel.end.message__view__role.some(e => e === el.role)).map(el => el.telegramId)}
-                        down />
+                    
                 </label>
             </div>
-            <div className="border-b border-[#E9E9E9] pb-[20px] flex flex-col gap-[10px] relative">
+            
+            {AccessModel.contract.show__role.some(el => userRole.includes(el)) && (
+            <div className="border-b border-[#333232] pb-[20px] flex flex-col gap-[10px] relative">
+            <div className="flex justify-between">
+              <span className="font-bold  lg:text-[20px] text-[16px]">Договор</span>
+              <Approve 
+                    formData={order}
+                    setFormData={setOrder}
+                    name='contract'
+                    disabled={AccessModel.contract.change__role.every(el => !userRole.includes(el))}
+                    usersArrayApprove={users.filter(el => AccessModel.contract.message__view__role.some(e => e === el.role)).map(el => el.telegramId)}
+              />
+            </div>
                 <InputFile
                     disabled
                     title='Договор'
@@ -197,13 +237,7 @@ export const View2 = ({
                     array={order.contract.files}
                     file
                 />
-                <Approve 
-                    formData={order}
-                    setFormData={setOrder}
-                    name='contract'
-                    disabled={AccessModel.contract.change__role.every(el => !userRole.includes(el))}
-                    usersArrayApprove={users.filter(el => AccessModel.contract.message__view__role.some(e => e === el.role)).map(el => el.telegramId)}
-              />
+                
                <Comments
                 className='self-end' 
                 title='Контракту'
@@ -217,13 +251,19 @@ export const View2 = ({
               />
 
             </div>
-            <div className="border-b border-[#E9E9E9] pb-[20px]">
+            )}
+
+        {AccessModel.paymentStages.show__role.some(el => userRole.includes(el)) && (
+             <div className="border-b border-[#333232] pb-[20px]">
                 <PaymentStages
                     disabled
                     title='Стадии предоплат'
                     order={order}
                     setOrder={setOrder} />
             </div>
+        )}
+            
+           
             <div>
                 <Input
                     disabled
@@ -237,6 +277,6 @@ export const View2 = ({
                     min={0} 
                 />
             </div>
-        </>
+        </div>
     )
 }

@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
-import { Form0 } from './Form0';
+
 import {Accordion} from 'react-bootstrap';
-import {OrderModel} from "../Models/OrderModel"
-import { createNewOrder, deleteImageFromStorage, updateDocumentInCollection, updateFieldInDocumentInCollection, uploadFilesToStoragesFolder, uploadFilesToStoragesFolderWitwName } from '../helpers/firebaseControl';
+import {AdditionalWorkModel, OrderModel} from "../Models/OrderModel"
+import { deleteImageFromStorage, updateDocumentInCollection, updateFieldInDocumentInCollection, uploadFilesToStoragesFolder, uploadFilesToStoragesFolderWitwName } from '../helpers/firebaseControl';
 import { toast } from 'react-toastify';
 import { AppContext } from '../context/AppContext';
 import { useNavigate } from 'react-router-dom';
@@ -12,10 +12,10 @@ import { Form1 } from './Form1';
 import { View1 } from './View1';
 import { Form2 } from './Form2';
 import { View2 } from './View2';
-import { OrderInformation } from './OrderInformation';
+
 import { Form3 } from './Form3';
 import { View3 } from './View3';
-import { sendMessageTelegram } from '../helpers/functions';
+
 
 const Order = ({
   newOrder, // Bool is new or not
@@ -27,9 +27,9 @@ const Order = ({
 
     const [order, setOrder] = useState(OrderModel);
 
-    const { user, users,  userRole } = useContext(AppContext);
+    const { user, userRole } = useContext(AppContext);
 
-    const [activeKey, setActiveKey] = useState('0');
+    const [activeKey, setActiveKey] = useState('1');
 
     const [newComment, setNewComment] = useState({
       tz: '',
@@ -47,6 +47,8 @@ const Order = ({
       contract:[]
     });
 
+    const [newAddWork, setNewAddWork] = useState(AdditionalWorkModel);
+
     const [activeIndex, setActiveIndex] = useState(0);
 
     const navigate = useNavigate();
@@ -54,32 +56,17 @@ const Order = ({
     useEffect(() => {
       if(currentOrder) {
         setOrder(currentOrder);
-        setActiveKey(currentOrder.stage)
+        
       }
       
     }, [currentOrder]);
 
     useEffect(() => {
-      if(order.concept.approve === 'yes' && order.functional.approve === 'yes' && order.research.approve === 'yes') {
-          updateFieldInDocumentInCollection('orders', order.idPost, 'stage', '2');
-          setOrder({...order, stage: '2'});
-      }
-
-  }, [order.concept.approve, order.functional.approve, order.research.approve]);
-  
-  useEffect(() => {
-    if(order.figma.approve === 'yes' && order.tz.approve === 'yes' && order.plan.approve === 'yes' && order.content.approve === 'yes' && order.price.approve === 'yes' && order.end.approve === 'yes' && order.contract.approve === 'yes') {
-        updateFieldInDocumentInCollection('orders', order.idPost, 'stage', '3');
-        setOrder({...order, stage: '3'});
-    }
-
-}, [order.figma.approve, order.tz.approve, order.plan.approve, order.content.approve, order.price.approve, order.end.approve, order.contract.approve]);
-
+      setActiveKey(order.stage === '1' ? '2' : order.stage)
+    }, [order.id]);
 
     const handleSelect = (eventKey) => {
-      if (eventKey <= order.stage) {
-          setActiveKey(eventKey);
-      }
+      setActiveKey(eventKey);
     };
 
     const handleChange = (event) => {
@@ -205,20 +192,31 @@ const Order = ({
       setFiles({...files, [name]: newFiles});
     };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+
+    const handleChangeStageWithCondition = async( callback, stage, condition) => {
+      if(condition) {
+        try {
+          await updateFieldInDocumentInCollection('orders', order.idPost, 'stage', stage);
+          toast.success('Вы успешно перешли на следующий этап');
+        } catch(error) {
+          console.log(error);
+          toast.error('Something went wrong...');
+        };
+        
+      } else {
+        callback();
+      }
+    };
+    
+    const handleChangeStage = async(stage) => {
       try {
-      await createNewOrder(user.uid, user.nickName, order, newComment);
-      const usersArray = users.filter(el => el.role.includes('executor')).map(el => el.telegramId);
-      console.log(usersArray);
-      sendMessageTelegram('Новый заказ сохранен в базу данных', usersArray);
-      toast.success("Order saved in BD");
-      navigate('/orderList');
-    } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong...");
-    }
-};
+        await updateFieldInDocumentInCollection('orders', order.idPost, 'stage', stage);
+        toast.success('Вы успешно перешли на следующий этап')
+      } catch(error) {
+        console.log(error);
+        toast.error('Something went wrong...')
+      }
+    };
 
 const handleSubmitChange = async (e) => {
   e.preventDefault();
@@ -295,6 +293,10 @@ const handleSubmitChange = async (e) => {
             }]
           : order.content.comments,
         },
+        additionalWork: newAddWork.title.length > 0 ? [
+          ...order.additionalWork,
+          newAddWork,
+        ] : order.additionalWork
       }, currentOrder.idPost);
       });
     } else {
@@ -353,11 +355,15 @@ const handleSubmitChange = async (e) => {
           user: [user.nickName, user.uid],
           }]
         : order.content.comments,
+        
       },
+      additionalWork: newAddWork.title.length > 0 ? [
+        ...order.additionalWork,
+        newAddWork,
+      ] : order.additionalWork
     }, currentOrder.idPost);
     }
   toast.success("Order was updated successfully");
-  navigate('/orderList');
   } catch (error) {
   console.log(error);
   toast.error("Something went wrong...");
@@ -365,17 +371,19 @@ const handleSubmitChange = async (e) => {
 };
 
 console.log(order);
+console.log(activeKey);
 
     return (
         <>
             <Accordion 
+              
               activeKey={activeKey} 
               onSelect={handleSelect} 
             >
-              <Accordion.Item eventKey="0">
-                <Accordion.Header>Stage #1</Accordion.Header>
+              <Accordion.Item eventKey="1">
+                <Accordion.Header>Новый проект</Accordion.Header>
                 <Accordion.Body>
-                  {currentOrder ? (
+                  {/* {currentOrder ? ( */}
                     <View0 
                       order={order} 
                       newComment={newComment}
@@ -384,7 +392,7 @@ console.log(order);
                       activeIndex={activeIndex}
                       setActiveIndex={setActiveIndex}
                     />
-                  ): (
+                  {/* ): (
                     <Form0 
                       order={order}
                       handleChange={handleChange}
@@ -394,15 +402,11 @@ console.log(order);
                       handleSubmit={handleSubmit}
                       activeIndex={activeIndex}
                       setActiveIndex={setActiveIndex}
-                     /*  model={""} 
-                      update={console.log("")} 
-                      newOrder={newOrder} 
-                      role={role}  */
                     />
-                  )}
+                  )} */}
                 </Accordion.Body>
-              </Accordion.Item><Accordion.Item eventKey="1" >
-                <Accordion.Header>Stage #2</Accordion.Header>
+              </Accordion.Item><Accordion.Item eventKey="2" >
+                <Accordion.Header>Согласование верхнего уровня</Accordion.Header>
                 <Accordion.Body>
                   {userRole.includes('executor') ? (
                     <Form1 
@@ -417,6 +421,9 @@ console.log(order);
                       getApprove={getApprove}
                       activeIndex={activeIndex}
                       setActiveIndex={setActiveIndex}
+                      handleAddNewComment={handleAddNewComment}
+                      handleChangeStageWithCondition={handleChangeStageWithCondition}
+                      handleChangeStage={handleChangeStage}
                   />
                   ) : (
                     <View1
@@ -430,9 +437,11 @@ console.log(order);
                     />
                   )}
                   
-                </Accordion.Body>
-              </Accordion.Item><Accordion.Item eventKey="2">
-                <Accordion.Header>Stage #3</Accordion.Header>
+                </Accordion.Body>  
+              </Accordion.Item>
+              {+order.stage > 2 && (
+              <Accordion.Item eventKey="3">
+                <Accordion.Header>Полное Согласование</Accordion.Header>
                 <Accordion.Body>
                 {userRole.includes('executor') ? (
                   <Form2
@@ -448,6 +457,9 @@ console.log(order);
                     getApprove={getApprove}
                     activeIndex={activeIndex}
                     setActiveIndex={setActiveIndex}
+                    handleAddNewComment={handleAddNewComment}
+                    handleChangeStageWithCondition={handleChangeStageWithCondition}
+                    handleChangeStage={handleChangeStage}
                   />
                 ) : (
                   <View2 
@@ -460,31 +472,31 @@ console.log(order);
                     setActiveIndex={setActiveIndex}
                   />
                 )}
-                 
-
                 </Accordion.Body>
               </Accordion.Item>
-              <Accordion.Item eventKey="3">
-                <Accordion.Header>Stage #4</Accordion.Header>
+              )}
+              
+              {+order.stage > 3 && (
+                <Accordion.Item eventKey="4">
+                <Accordion.Header>Разработка</Accordion.Header>
                 <Accordion.Body>
-                  <div className='p-6'>
-                    <OrderInformation 
-                      order={order}
-                    />
                     {userRole.includes('executor') ? (
                       <Form3 
                         order={order}
                         setOrder={setOrder}
                         handleChange={handleChange}
                         handleSubmit={handleSubmitChange}
+                        newAddWork={newAddWork}
+                        setNewAddWork={setNewAddWork}
                       />
                     ) : (
                       <View3 order={order}/>
                     )}
                     
-                  </div>
                 </Accordion.Body>
               </Accordion.Item>
+              )}
+              
             </Accordion>
         </>
     )

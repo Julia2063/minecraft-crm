@@ -78,7 +78,7 @@ export const OrderModel = {
     comments: '',
     id: '', 
     dateCreating: '',
-    additionalWork: AdditionalWorkModel,
+    additionalWork: [],
     stage: '0',
     active: true,
     subscribe: '',

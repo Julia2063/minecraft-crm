@@ -2,7 +2,8 @@ import { AdditionalWork } from "./AdditionalWork";
 import { Button } from "./Button";
 import { Input } from "./Input"
 
-export const Form3 = ({order, setOrder, handleChange, handleSubmit}) => {
+export const Form3 = ({order, setOrder, handleChange, handleSubmit, newAddWork,
+    setNewAddWork}) => {
     const handlePaymentStagesChange = (e, name) => {
         setOrder({...order, paymentStages: {
             ...order.paymentStages, [name]: {...order.paymentStages[name], success: e.target.checked}  
@@ -11,7 +12,7 @@ export const Form3 = ({order, setOrder, handleChange, handleSubmit}) => {
 
     return (
         <form className="pt-6 flex flex-col gap-[20px]" onSubmit={handleSubmit}>
-            <div className="border-b border-[#E9E9E9] pb-[20px]  pt-[20px] flex flex-col gap-[10px]">
+            <div className="border-b border-[#333232] pb-[20px]  pt-[20px] flex flex-col gap-[10px]">
               <Input
                 title="Видео"
                 name="videos"
@@ -20,13 +21,13 @@ export const Form3 = ({order, setOrder, handleChange, handleSubmit}) => {
                 value={order.videos} 
                 handleChange={handleChange}
                 placeholder="введите ссылку на видео"
-                labelStyle="flex justify-between items-center"
-                inputStyle="w-3/4 h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2"
+                labelStyle="flex justify-between lg:items-center lg:flex-row flex-col"
+                inputStyle=" w-full lg:w-3/4 h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2"
               />  
             </div>
-            <div className="border-b border-[#E9E9E9] pb-[20px] pt-[20px] flex gap-[10px]">
+            <div className="border-b border-[#333232] pb-[20px] pt-[20px] flex gap-[10px]">
                <label className="flex flex-col gap-[10px]">
-                <span className="font-bold">Статус оплаты</span>
+                <span className="font-bold lg:text-[20px] text-[16px]">Статус оплаты</span>
                 {Object.entries(order.paymentStages).map((el, i) => {
                     return (
                         <label key={i}>
@@ -44,7 +45,7 @@ export const Form3 = ({order, setOrder, handleChange, handleSubmit}) => {
                 })}
                </label>
             </div>
-            <div className="border-b border-[#E9E9E9] pb-[20px] pt-[20px] flex gap-[10px] items-center">
+            <div className="border-b border-[#333232] pb-[20px] pt-[20px] flex gap-[10px] items-center">
                 <Input
                     title="Процент выполнения"
                     name="execution"
@@ -60,7 +61,8 @@ export const Form3 = ({order, setOrder, handleChange, handleSubmit}) => {
             </div>
             <div className="pb-[20px]  pt-[20px] flex flex-col gap-[10px]">
               <AdditionalWork 
-                setOrder={setOrder}
+                newAddWork={newAddWork}
+                setNewAddWork={setNewAddWork}
                 order={order}
               />
             </div>

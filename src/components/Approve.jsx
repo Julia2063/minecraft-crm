@@ -52,15 +52,15 @@ export const Approve = ({ formData, name, disabled, usersArrayGetApprove, getApp
     };
 
     return (
-        <label className={cn('absolute left-[80%] top-[-10px] ', {'top-[20px]' : down})}>
+        <label>
             {userRole.includes('executor') ? (
                 <>
-                {(formData[name].approve === '' || formData[name].approve === 'no') && 
+                {(formData[name].approve === '' || (formData[name].approve === 'no' && userRole !== 'executor_admin')) && 
                     <button 
                         disabled={disabled || formData[name].text?.length === 0 || formData[name].files?.length === 0}
                         type='button'
                         onClick={handleGetApproval}
-                        className='border-2 border-red-500 text-red-500 rounded-[10px] flex items-center justify-center disabled:opacity-50'
+                        className='border-2 border-blue-500 text-blue-500 rounded-[10px] flex items-center justify-center px-[5px] disabled:opacity-50'
                     >
                         get Approval?
                     </button>
@@ -68,15 +68,37 @@ export const Approve = ({ formData, name, disabled, usersArrayGetApprove, getApp
                 {formData[name].approve === 'wait' && (
                     <>
                       {userRole === 'executor_admin' ? (
-                        <button 
-                            type='button'
-                            className='border-2 border-gray-500 text-gray-500 rounded-[10px] flex   items-center justify-center'
-                            onClick={() => handleReturnGetApproval('')}
-                        >
-                            Waiting...
-                        </button>
+                         <>
+                            <div className='flex gap-[10px]'>
+                            <button 
+                                type='button'
+                                className='border-2 px-[5px] border-gray-500 text-gray-500 rounded-[10px] flex   items-center justify-center'
+                                onClick={() => handleReturnGetApproval('')}
+                            >
+                                Waiting...
+                            </button>
+                            <button 
+                                disabled={disabled}
+                                type='button'
+                                onClick={() => handleApprove('yes')}
+                                className='border-2 px-[5px] border-green-500 text-green-500 rounded-[10px] flex items-center justify-center disabled:opacity-50'
+                            >
+                                Approve?
+                            </button>
+                            <button 
+                                disabled={disabled}
+                                type='button'
+                                onClick={() => handleApprove('no')}
+                                className='border-2 px-[5px] border-red-500 text-red-500 rounded-[10px] flex items-center justify-center disabled:opacity-50'
+                            >
+                                Reject?
+                            </button>
+                        </div>
+                        
+                        </>
+                       
                       ) : (
-                        <div className='border-2 border-gray-500 text-gray-500 rounded-[10px] flex items-center justify-center'>
+                        <div className='border-2 px-[5px] border-gray-500 text-gray-500 rounded-[10px] flex items-center justify-center'>
                             Waiting...
                         </div>
                       )}
@@ -84,10 +106,24 @@ export const Approve = ({ formData, name, disabled, usersArrayGetApprove, getApp
                     </>
                     
                 )}
-                {formData[name].approve === 'yes' && (
-                    <div className='border-2 border-green-500 text-green-500 rounded-[10px] flex items-center justify-center'>
-                        APPROVE
-                    </div>
+                {(formData[name].approve !== 'wait' && formData[name].approve !== '') && (
+                    <>
+                        {userRole === 'executor_admin' ? (
+                            <button 
+                              type='button'
+                              className={cn('border-2 px-[5px]  rounded-[10px] flex items-center justify-center', {'border-green-500 text-green-500': formData[name].approve === 'yes', 'border-red-500 text-red-500': formData[name].approve === 'no'})} 
+                              onClick={() => handleReturnGetApproval('wait')}
+                            >
+                                {formData[name].approve === 'yes' ? 'APPROVE' : 'NOT APPROVE'} 
+                            </button>
+                        ) : (
+                            <div className={cn('border-2 px-[5px]-green-500 text-green-500 rounded-[10px] flex items-center justify-center', {'border-green-500 text-green-500': formData[name].approve === 'yes', 'border-red-500 text-red-500': formData[name].approve === 'no'})}  >
+                                {formData[name].approve === 'yes' ? 'APPROVE' : 'NOT APPROVE'} 
+                            </div>
+                        )}
+                    </>
+
+                   
                 )}
                 </>
                 
@@ -99,7 +135,7 @@ export const Approve = ({ formData, name, disabled, usersArrayGetApprove, getApp
                                 disabled={disabled}
                                 type='button'
                                 onClick={() => handleApprove('yes')}
-                                className='border-2 border-green-500 text-green-500 rounded-[10px] flex items-center justify-center disabled:opacity-50'
+                                className='border-2 px-[5px] border-green-500 text-green-500 rounded-[10px] flex items-center justify-center disabled:opacity-50'
                             >
                                 Approve?
                             </button>
@@ -107,7 +143,7 @@ export const Approve = ({ formData, name, disabled, usersArrayGetApprove, getApp
                                 disabled={disabled}
                                 type='button'
                                 onClick={() => handleApprove('no')}
-                                className='border-2 border-red-500 text-red-500 rounded-[10px] flex items-center justify-center disabled:opacity-50'
+                                className='border-2 border-red-500 px-[5px] text-red-500 rounded-[10px] flex items-center justify-center disabled:opacity-50'
                             >
                                 Reject?
                             </button>
@@ -118,14 +154,14 @@ export const Approve = ({ formData, name, disabled, usersArrayGetApprove, getApp
                         {userRole === 'customer_admin' ? (
                              <button
                                 type='button'
-                                className='border-2 border-green-500 text-green-500 rounded-[10px] flex items-center justify-center'
+                                className='border-2 border-green-500 px-[5px] text-green-500 rounded-[10px] flex items-center justify-center'
                                 onClick={() => handleReturnGetApproval('wait')}
                              >
                                  APPROVE
                             </button>
                         ) : (
                             <div
-                                className='border-2 border-green-500 text-green-500 rounded-[10px] flex items-center justify-center'
+                                className='border-2 border-green-500 px-[5px] text-green-500 rounded-[10px] flex items-center justify-center'
                                 >
                                     APPROVE
                             </div>
@@ -140,14 +176,14 @@ export const Approve = ({ formData, name, disabled, usersArrayGetApprove, getApp
                              {userRole === 'customer_admin' ? (
                                     <button
                                         type='button'
-                                        className='border-2 border-red-500 text-red-500 rounded-[10px] flex items-center justify-center'
+                                        className='border-2 px-[5px] border-red-500 text-red-500 rounded-[10px] flex items-center justify-center'
                                         onClick={() => handleReturnGetApproval('wait')}
                                     >
                                         NON APPROVE
                                     </button>
                                 ) : (
                                         <div
-                                            className='border-2 border-red-500 text-red-500 rounded-[10px] flex items-center justify-center'
+                                            className='border-2 px-[5px] border-red-500 text-red-500 rounded-[10px] flex items-center justify-center'
                                         >
                                             NOT APPROVE
                                         </div>

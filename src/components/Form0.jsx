@@ -10,14 +10,12 @@ export const Form0 = ({
   newComment, 
   setNewComment,
   handleSubmit,
-  activeIndex,
-  setActiveIndex
 }) => {
     
 
     return (
         <form className="pt-6 flex flex-col gap-[20px]" onSubmit={handleSubmit}>
-            <div className="border-b border-[#E9E9E9] pb-[20px]">
+            <div className="border-b border-[#333232] pb-[20px]">
               <Input
                 title="Название"
                 name="title"
@@ -25,13 +23,14 @@ export const Form0 = ({
                 tag='input'
                 value={order.title} 
                 handleChange={handleChange}
+                required
                 placeholder="Введите название"
-                labelStyle="flex justify-between items-center"
-                inputStyle="w-3/4 h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2 disabled:opacity-50"
+                labelStyle="flex justify-between lg:flex-row flex-col  lg:items-center"
+                inputStyle=" w-full lg:w-3/4 h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2 disabled:opacity-50"
               />
             </div>
 
-            <div className="border-b border-[#E9E9E9] pb-[20px]">
+            <div className="border-b border-[#333232] pb-[20px]">
               <Input 
                 title="Реф link"
                 name="ref"
@@ -39,19 +38,21 @@ export const Form0 = ({
                 tag='input'
                 value={order.ref} 
                 handleChange={handleChange}
+                required
                 placeholder="Введите адрес ссылки на реф"
-                labelStyle="flex justify-between items-center"
-                inputStyle="w-3/4 h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2 disabled:opacity-50"
+                labelStyle="flex justify-between  lg:flex-row flex-col  lg:items-center"
+                inputStyle="w-full lg:w-3/4 h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2 disabled:opacity-50"
               />
             </div>
 
-            <div className="border-b border-[#E9E9E9] pb-[20px] flex flex-col gap-[10px]">
+            <div className="border-b border-[#333232] pb-[20px] flex flex-col gap-[10px]">
+              <span className="font-bold lg:text-[20px] text-[18]">Техническое задание</span>
               <Input 
-                title="ТЗ"
                 name="tz"
                 type='text'
                 tag='textarea'
                 value={order.tz.text} 
+                required
                 handleChange={(e) => setOrder({...order, tz: {...order.tz, text: e.target.value }})}
                 placeholder="Введите текст Технического Задания"
                 labelStyle="flex justify-between items-center"
@@ -62,19 +63,18 @@ export const Form0 = ({
                 title='ТЗ'
                 comments={[]}
                 onChange={(e) => setNewComment({...newComment, tz: e.target.value})}
-                activeIndex={activeIndex}
-                setActiveIndex={setActiveIndex}
-                index={1}
+                isNew
               />
             </div>
 
-            <div className="border-b border-[#E9E9E9] pb-[20px] flex flex-col gap-[10px]">
+            <div className="border-b border-[#333232] pb-[20px] flex flex-col gap-[10px]">
+            <span className="font-bold lg:text-[20px] text-[18]">Research</span>
               <Input 
-                title="Research"
                 name="research"
                 type='text'
                 tag='textarea'
                 value={order.research.text} 
+                required
                 handleChange={(e) => setOrder({...order, research: {...order.research, text: e.target.value }})}
                 placeholder="Введите задание для Research"
                 labelStyle="flex justify-between items-center"
@@ -85,32 +85,32 @@ export const Form0 = ({
                 title='Research'
                 comments={[]}
                 onChange={(e) => setNewComment({...newComment, research: e.target.value})}
-                activeIndex={activeIndex}
-                setActiveIndex={setActiveIndex}
-                index={2}
+                isNew
               />
             </div>
 
-            <div className="border-b border-[#E9E9E9] pb-[20px]">
+            <div className="border-b border-[#333232] pb-[20px]">
+            <span className="font-bold lg:text-[20px] text-[18]">Подписка</span>
               <Input 
-                title="Подписка"
                 name="subscribe"
                 type='text'
                 tag='textarea'
                 value={order.subscribe} 
                 handleChange={handleChange}
+                required
                 placeholder="Введите подписку"
                 labelStyle="flex justify-between items-center"
                 inputStyle="w-3/4 h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2"
               />
             </div>
 
-            <div className="border-b border-[#E9E9E9] pb-[20px] flex flex-col gap-[10px] mt-2">
+            <div className="border-b border-[#333232] pb-[20px] flex flex-col gap-[10px] mt-2">
               <Input 
                 title="Желаемые сроки (в неделях)"
                 name="desiredDates"
                 type='number'
                 tag='input'
+                required
                 value={order.desiredDates} 
                 handleChange={handleChange}
                 labelStyle="flex-col w-2/3"
@@ -119,21 +119,22 @@ export const Form0 = ({
               />
             </div>
 
-            <div className="flex flex-row gap-[20px] mt-2">
+            <div className="flex flex-col lg:flex-row gap-[20px] mt-2">
               <Input 
                 title="Желаемая цена"
                 name="desiredPrice"
                 type='number'
+                required
                 tag='input'
                 value={order.desiredPrice} 
                 handleChange={handleChange}
-                labelStyle="flex-col w-1/3"
+                labelStyle="flex-col lg:w-1/3 w-full"
                 inputStyle="w-full h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2"
                 min={0}
                 step="0.01"
               />
-              <label className="flex-col w-1/3">
-                <span  className="font-bold">Приоритет</span>
+              <label className="flex-col lg:w-1/3 w-full">
+                <span  className="font-bold lg:text-[20px] text-[18]">Приоритет</span>
                 <div>
                   <select
                     name="priority"

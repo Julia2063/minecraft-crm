@@ -10,7 +10,7 @@ export const SwiperModal = ({ isOpen, setIsOpen, currentIndex, array }) => {
           isOpen={isOpen}
           onRequestClose={() => setIsOpen(false)}
           shouldCloseOnOverlayClick={true}
-          className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#FAFAFA] lg:w-2/3 w-full h-4/5 rounded-lg shadow-md p-4 z-50"
+          className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#FAFAFA] lg:w-2/3 w-full h-1/2 lg:h-4/5 rounded-lg shadow-md p-4 z-50"
           overlayClassName="fixed inset-0 bg-black bg-opacity-50"
           autoFocus={false}
           ariaHideApp={false}

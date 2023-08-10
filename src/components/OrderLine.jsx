@@ -9,6 +9,7 @@ import { useState } from 'react';
 import Modal from "react-modal";
 import { IoMdClose } from 'react-icons/io';
 import { Button } from './Button';
+import { format } from 'date-fns';
 
 export const OrderLine = ({ i, data }) => {
 
@@ -18,9 +19,9 @@ export const OrderLine = ({ i, data }) => {
   const [isWarningModal, setIsWarningModal] = useState(false);
 
   const handleChangeStage = async () => {
-    if(+data.stage < 2) {
+    if(+data.stage.value < 2) {
       try {
-        await updateFieldInDocumentInCollection('orders', data.idPost, 'stage', '2');
+        await updateFieldInDocumentInCollection('orders', data.idPost, 'stage', {value: '2', dateChanging: format(new Date(), 'yyyy-MM-dd HH:mm')} );
       } catch(error) {
         console.log(error)
       }
@@ -36,22 +37,22 @@ export const OrderLine = ({ i, data }) => {
         <div className="w-auto lg:pl-[20px] lg:pr-[20px] pl-[8px] pr-[8px]">
           <p className=" font-bold text-[#727272] ">{i + 1}</p>
         </div>
-        <div className="w-1/4">
+        <div className="w-1/6">
           <p className="font-bold text-[#727272] text-center">
             <Link onClick={handleChangeStage} to={`/orderList/${data.id}`}>{data.id}</Link>
           </p>
         </div>
-        <div className="w-1/4">
+        <div className="w-1/6">
           <p className="font-bold text-[#727272] text-center">
             {data.title}
           </p>
         </div>
-        <div className="w-1/4">
+        <div className="w-1/6">
           <p className=" font-bold text-[#727272] text-center">
             <a href={`${data.ref}`} target='_blank'>ссылка</a>
           </p>
         </div>
-        <div className="w-1/4 flex items-center justify-center gap-[5px]">
+        <div className="w-1/6 flex items-center justify-center gap-[5px]">
 
           {data.concept.files.slice(0, 1).map((el, i) => {
             return (
@@ -69,9 +70,14 @@ export const OrderLine = ({ i, data }) => {
           })}
 
         </div>
-        <div className="w-1/4">
+        <div className="w-1/6">
           <p className=" font-bold text-[#727272] text-center">
             {data.priority}
+          </p>
+        </div>
+        <div className="w-1/6">
+          <p className=" font-bold text-[#727272] text-center">
+            {data.stage.value}
           </p>
         </div>
         <div className="w-auto lg:pl-[20px] lg:pr-[20px] pl-[8px] pr-[8px]">
@@ -112,14 +118,24 @@ export const OrderLine = ({ i, data }) => {
             Вы действительно хотите удалить проект?
           </div>
 
-          <Button
+          <div className='flex gap-[10px]'>
+            <Button
             type="button" 
             label='ДA' 
             callback={() => {
               handleDelete(data);
-              setIsWarningModal(false);
-          }}
-          />
+                setIsWarningModal(false);
+            }}
+            />
+            <Button
+              type="button" 
+              label='НЕТ' 
+              callback={() => {
+                setIsWarningModal(false);
+            }}
+            />
+          </div>
+          
 
       </Modal>
       </>

@@ -35,9 +35,10 @@ const Menu = () => {
                         <PageNavLink to="/settings" text='Settings' onClick={handleLinkClick}/>
                     </Nav>
                 </Navbar.Collapse> 
-                <button className='p-[10px] border border-gray-700 rounded bg-white'
+                <button className='p-[10px] border border-gray-700 rounded bg-white flex gap-[10px] items-center'
                     onClick={handleLogOut}
                 >  
+                    <span>Выйти</span>
                     <FiLogOut />
                 </button>
             </Container>

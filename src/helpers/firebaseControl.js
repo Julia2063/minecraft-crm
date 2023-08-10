@@ -1,7 +1,7 @@
 import { getAuth, signOut, GoogleAuthProvider } from "firebase/auth";
 import { db, storage } from "../firebase";
 import {format} from 'date-fns';
-import { ref, deleteObject } from 'firebase/storage';
+import { ref, deleteObject, getMetadata } from 'firebase/storage';
 import { UserModel } from "../Models/UserModel";
 import { toast } from "react-toastify";
 
@@ -105,6 +105,8 @@ export function setDocumentToCollection(collection, document) {
 
   export async function updateFieldInDocumentInCollection (collection, docId, fieldName, newValue) {
 
+    console.log(newValue);
+
     let result;
   
     try {
@@ -155,7 +157,10 @@ export function createNewUser(uid, email) {
           date: format(new Date(), 'yyyy-MM-dd HH:mm'),
           user: [email, uid],
         }] : []},
-        stage: '1',
+        stage: {
+          value: '1',
+          dateChanging: format(new Date(), 'yyyy-MM-dd HH:mm'),
+        } ,
         dateCreating: format(new Date(), 'yyyy-MM-dd HH:mm'),
         id,
       };
@@ -190,8 +195,6 @@ export function createNewUser(uid, email) {
         });
         promisesUploadImages.push(uploadTask);
       }
-    
-    
     
     return  Promise.all(promisesUploadImages).then(res => {
       console.log(imagesUrl);
@@ -230,6 +233,45 @@ export function createNewUser(uid, email) {
       return imagesUrl;
     });
   };
+
+  export async function uploadIpa (file, order, i) {
+   
+    return new Promise(function (resolve, reject) {
+       storage.ref(`${order.id}/bugsReports/${i}/ipa`).put(file).then(res => {
+      storage.ref(`${order.id}/bugsReports/${i}`).child('ipa').getDownloadURL().then(res => {
+        
+        resolve(res);
+       /*  getMetadata(storage.ref(`${order.id}/bugsReports/${i}/ipa`)).then(r => {
+          fileInformation.name = r;
+        }).catch(err => console.log(err));
+        resolve(fileInformation); */
+      }).catch(e => {
+        console.log(e);
+      });
+    }).catch(e => {
+      reject(e);
+    });
+    })
+  };
+
+  
+  export function uploadBugReportFiles(files, order, ind) {
+    const uploadPromises = files.map((file) => {
+      const uploadRef = storage.ref(`${order.id}/bugsReports/${ind}/${file.name}`);
+      return uploadRef.put(file);
+    });
+    return Promise.all(uploadPromises);
+  };
+
+  export function getLinksAndMetadata(uploads) {
+    const linkAndMetadataPromises = uploads.map((upload) => {
+      const ref = upload.ref;
+      return Promise.all([ref.getDownloadURL(), ref.getMetadata()])
+        .then(([url, metadata]) => ({ url, metadata }));
+    });
+    return Promise.all(linkAndMetadataPromises);
+  };
+  
 
   export function deleteImageFromStorage (image) {
     return new Promise(function (resolve, reject) {
@@ -271,12 +313,33 @@ export function createNewUser(uid, email) {
       if (el.contract.files.length > 0 ) {
         await deleteObjectFromeStorage(el, 'contract');
       };
+
+      el.bugs.filter(e => e.files.length > 0).forEach((e, i) => {
+        deleteObjectFromeStorage(el, `bugsReports/${i}`);
+      });
+
       await removeDocumentFromCollection(`orders`, el.idPost);
       toast.success("Order was deleted from BD");
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong...");
     }
+  };
+
+  export function downloadFile(url, date) {
+    const xhr = new XMLHttpRequest();
+    xhr.responseType = 'blob';
+    xhr.onload = (event) => {
+      const blob = xhr.response;
+      const fileURL = window.URL.createObjectURL(blob);
+      let alink = document.createElement('a');
+      alink.href = fileURL;
+      alink.download = `${date}`;
+      alink.click();
+    };
+     xhr.open('GET', url);
+    
+    xhr.send();
   };
 
   

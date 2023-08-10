@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { updateFieldInDocumentInCollection } from "../helpers/firebaseControl";
 import { toast } from "react-toastify";
 import { RoleModel } from "../Models/UserModel";
+import { IoMdClose } from "react-icons/io";
 
 export const RoleModal = ({ isOpen, closeModal, email, userRole, id }) => {
     const [role, setRole] = useState('');
@@ -68,16 +69,19 @@ export const RoleModal = ({ isOpen, closeModal, email, userRole, id }) => {
             </span>
             </div>
             
-            <div className="flex flex-row justify-between">
-                <button onClick={closeModal} type='button'>
-                <span className="text-[#DC0000] text-sm">Закрыть</span>
-                </button>
-                <div className="flex justify-end">
+            <div className="flex justify-end">
                 <Button type="submit" label={userRole.length > 0 ? 'Изменить' : 'Назначить'} />
-                </div>
             </div>
-          </form>
+
             
+          </form>
+          <button
+            type="button"
+            className="fixed top-[10px] right-[10px] h-[30px] w-[30px] w-max items-center px-[10px] rounded bg-white text-black flex items-center justify-center z-50"
+            onClick={closeModal}
+          >
+            <IoMdClose />
+          </button>
         </Modal>
     )
 }

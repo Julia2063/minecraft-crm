@@ -3,12 +3,25 @@ export const AdditionalWorkModel = {
   tz:'',
   hh: '',
   price: '',
-  end: '',
+  dateCreating: '',
 };
+
+export const BugsItemModel = {
+  active: true,
+  files: '',
+  bugsReport: {
+    text: '',
+    files: [],
+    names: []
+  },
+  exApprove: '',
+  cusApprove: '',
+}
 
 export const OrderModel = {
     uid: '',
     title: '',
+
     ref: '',
     tz: {
       text: '',
@@ -57,7 +70,7 @@ export const OrderModel = {
       comments: [],
       approve:'',
     },
-    videos: [],
+    videos: [''],
     plan: {
       text: '',
       approve: '',
@@ -79,8 +92,12 @@ export const OrderModel = {
     id: '', 
     dateCreating: '',
     additionalWork: [],
-    stage: '0',
+    stage: {
+      value: '0',
+      dateChanging: ''
+    },
     active: true,
     subscribe: '',
+    bugs: [BugsItemModel],
 };
 

@@ -49,6 +49,10 @@ export const RoleModel = [
         key: "executor_financier",
         name: "Исполнитель финансист"
     },
+    {
+        key: "executor_dev",
+        name: "Исполнитель разработчик"
+    },
 
     
 ]

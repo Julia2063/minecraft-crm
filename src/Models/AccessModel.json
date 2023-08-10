@@ -81,5 +81,23 @@
         "show__role": [],
         "change__role": ["admin", "teh"],
         "message__view__role": ["executor_admin", "executor_teh"]
+    },
+
+    "ipa": {
+        "message__form__role__add": ["executor_admin", "executor_test"],
+        "show__role": [],
+        "change__role": ["admin", "teh"],
+        "message__view__role": ["executor_admin", "executor_teh"]
+    },
+
+    "bugs": {
+        "message__form__role__approve": ["executor_admin", "executor_dev", "executor_tex", "customer_admin", "customer_teh"],
+        "message__form__role__reject": ["executor_admin", "executor_dev", "executor_tex"],
+        "message__form__role__cusApprove": ["executor_admin", "executor_dev", "executor_tex", "executor_financier"],
+        "message__form__role__cusNotApprove": ["executor_admin", "executor_dev", "executor_tex"]
+    },
+
+    "external__testing" : {
+        "change__role": ["executor_admin"]
     }
 }

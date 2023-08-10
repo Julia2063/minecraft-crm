@@ -125,13 +125,13 @@ export const View2 = ({
             <label className="flex flex-col gap-[10px]">
             <div className="flex justify-between">
               <span className="font-bold lg:text-[20px] text-[16px]">Контент</span>
-              <Approve
+                <Approve
                     formData={order}
                     setFormData={setOrder}
                     name={'content'}
                     disabled={AccessModel.content.change__role.every(el => !userRole.includes(el))}
                     usersArrayApprove={users.filter(el => AccessModel.content.message__view__role.some(e => e === el.role)).map(el => el.telegramId)}
-                    /> 
+                /> 
             </div>
             <div className="flex lg:flex-row flex-col justify-between">
                  <span className="font-bold">link</span>
@@ -235,7 +235,6 @@ export const View2 = ({
                     title='Договор'
                     name='contract'
                     array={order.contract.files}
-                    file
                 />
                 
                <Comments

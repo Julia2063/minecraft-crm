@@ -38,7 +38,27 @@ export const AppContext = React.createContext({
           } else {
             db.collection('users').onSnapshot(snapshot => {
               setUsers(snapshot.docs.map(doc => ({...doc.data()})));
-            })
+            });
+            db.collection('orders').onSnapshot(snapshot => {
+              /* let model = AddOrder;
+              let snapshotResult = snapshot.docs.map(doc => ({...doc.data(), idPost: doc.id}));
+              let snapshotKeys = [];
+        
+              snapshotResult.forEach(el => {
+                snapshotKeys.push(Object.keys(el));
+              })
+            
+              let result = model.inputs;
+              console.log(snapshotResult, snapshotKeys, result);
+              snapshotKeys.forEach(s => {
+                model.inputs.forEach(el => {
+                  console.log(el[s]);
+                  console.log(result[result.(el.key)]);
+                });
+              }) */
+             
+              setOrders(snapshot.docs.map(doc => ({...doc.data(), idPost: doc.id} )).sort((a, b) => new Date(b.dateCreating) - new Date(a.dateCreating)));
+            });
             navigate('/');
           }
           }).catch((error) => {

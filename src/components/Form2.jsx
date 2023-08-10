@@ -7,9 +7,8 @@ import { InputFile } from "./InputFile"
 import { PaymentStages } from "./PaymentStages"
 import { AppContext } from "../context/AppContext"
 import AccessModel from '../Models/AccessModel.json';
-import { IoMdClose } from "react-icons/io"
 
-import Modal from "react-modal";
+import { StageChangeModal } from "./StageChangeModal"
 
 export const Form2 = ({ 
     order,
@@ -240,7 +239,8 @@ export const Form2 = ({
 
 
         {AccessModel.contract.show__role.some(el => userRole.includes(el)) && (
-            <><div className="border-b border-[#333232] pb-[20px] relative">
+            <>
+            <div className="border-b border-[#333232] pb-[20px] relative">
               <div className="flex justify-between">
                 <span className="font-bold lg:text-[20px] text-[16px]">Договор</span>
                 <Approve
@@ -259,7 +259,8 @@ export const Form2 = ({
                 handleChange={(e) => handleChangePhotos(e, 'contract')}
                 array={order.contract.files}
                 handleDeletePhoto={handleDeletePhoto}
-                file />
+                
+                />
 
               <Comments
                 className='self-end'
@@ -300,7 +301,7 @@ export const Form2 = ({
 
         <div className="flex justify-between">
 
-          {order.stage < 4 && (
+          {order.stage.value < 4 && (
             <Button
               type="button"
               label='Перейти далее'
@@ -320,40 +321,12 @@ export const Form2 = ({
 
 
       </form>
-      <Modal
-        isOpen={isWarningModal}
-        onRequestClose={() => setIsWarningModal(false)}
-        shouldCloseOnOverlayClick={true}
-        className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#FAFAFA] w-screen lg:w-max h-max rounded-lg shadow-md p-5 z-50 flex flex-col gap-[40px] items-center"
-        overlayClassName="fixed inset-0 bg-black bg-opacity-50"
-        autoFocus={false}
-        ariaHideApp={false}
-      >
-          <button
-            type="button"
-            className="absolute top-[10px] right-[10px] h-[30px] w-[30px] w-max items-center px-[10px] rounded bg-white text-black flex items-center justify-center z-50"
-            onClick={() => setIsWarningModal(false)}
-          >
-            <IoMdClose />
-          </button>
-          <div className='font-bold lg:text-[20px] text-[14px] flex flex-col gap-[10px] items-center'>
-            <p>
-              Для оновления данных необходимо сохранить изменения.
-            </p>
-            <p>
-              Для перехода далее необходимо получить одобрение всех пунктов. Все равно перейти?
-            </p>
-          </div>
-
-          <Button
-            type="button"
-            label='ДA'
-            callback={() => {
-              handleChangeStage('4');
-              setIsWarningModal(false);
-            } } />
-
-        </Modal>
+      <StageChangeModal
+        isWarningModal={isWarningModal}
+        setIsWarningModal={setIsWarningModal}
+        stage='4'
+        handleChangeStage={handleChangeStage}
+      />
       </>
     )
 }

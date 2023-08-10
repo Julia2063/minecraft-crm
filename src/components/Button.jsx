@@ -1,8 +1,9 @@
 import cn from 'classnames';
 
-export const Button = ({ callback, label, type, className }) => {
+export const Button = ({ callback, label, type, className,  disabled }) => {
     return (
       <button
+        disabled={disabled}
         type={type}
         onClick={callback}
         className={cn("bg-[#00B488] w-max h-[36px] rounded hover:bg-[#01a179] active:bg-[#00B488] px-[10px]", className)}

@@ -36,34 +36,11 @@ function OrderListPage() {
   const [visibleOrders, setVisibleOrders] = useState([]);
   
 
-  const { user, userRole, orders, setOrders} = useContext(AppContext);
-  
-  useEffect(() => {
-    db.collection('orders').onSnapshot(snapshot => {
-      /* let model = AddOrder;
-      let snapshotResult = snapshot.docs.map(doc => ({...doc.data(), idPost: doc.id}));
-      let snapshotKeys = [];
-
-      snapshotResult.forEach(el => {
-        snapshotKeys.push(Object.keys(el));
-      })
-    
-      let result = model.inputs;
-      console.log(snapshotResult, snapshotKeys, result);
-      snapshotKeys.forEach(s => {
-        model.inputs.forEach(el => {
-          console.log(el[s]);
-          console.log(result[result.(el.key)]);
-        });
-      }) */
-     
-      setOrders(snapshot.docs.map(doc => ({...doc.data(), idPost: doc.id} )).sort((a, b) => new Date(b.dateCreating) - new Date(a.dateCreating)));
-    });
-  }, [user]);
+  const { userRole, orders } = useContext(AppContext);
 
   useEffect(() => {
     
-    const filteredOrders = orders.filter(el => filterStage === 'all' ? el : el.stage === filterStage).filter(el => {
+    const filteredOrders = orders.filter(el => filterStage === 'all' ? el : el.stage.value === filterStage).filter(el => {
       switch(true){
         case filterActive === 'active':
           return el.active;
@@ -78,7 +55,7 @@ function OrderListPage() {
 
     if(query.length > 0) {
       
-      setVisibleOrders(filteredOrders.filter(el => (el.title.includes(query) || el.figma.text.includes(query) || el.tz.text.includes(query))));
+      setVisibleOrders(filteredOrders.filter(el => (el.title.toLowerCase().includes(query.toLowerCase()) || el.figma.text.toLowerCase().includes(query.toLowerCase()) || el.tz.text.toLowerCase().includes(query.toLowerCase()))));
     } else {
       setVisibleOrders(filteredOrders);
     };
@@ -129,6 +106,9 @@ function OrderListPage() {
                   <option value="2">Этап 2</option>
                   <option value="3">Этап 3</option>
                   <option value="4">Этап 4</option>
+                  <option value="5">Этап 5</option>
+                  <option value="6">Этап 6</option>
+                  <option value="7">Этап 7</option>
                   </select>
                 </div>
               </label>

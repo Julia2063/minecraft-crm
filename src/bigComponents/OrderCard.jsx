@@ -46,16 +46,9 @@ export const OrderCard = () => {
                     <button 
                         className='mb-[20px] p-[10px] border border-gray-700 rounded bg-white' 
                         type='button'
-                        onClick={() => setIsView(false)}
+                        onClick={() => setIsView(!isView)}
                     > 
-                        <HiViewList />
-                    </button>
-                    <button 
-                        className='mb-[20px] p-[10px] border border-gray-700 rounded bg-white' 
-                        type='button'
-                        onClick={() => setIsView(true)}
-                    > 
-                        <GrView />
+                        {isView ? <HiViewList /> : <GrView />} 
                     </button>
                 </div>
             </div>

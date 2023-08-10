@@ -1,37 +1,31 @@
 import { MdDone } from 'react-icons/md';
 import {RxCross1 } from 'react-icons/rx';
-import { Button } from './Button';
-import { updateFieldInDocumentInCollection } from '../helpers/firebaseControl';
-import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
 import { AdditionalWork } from './AdditionalWork';
 
 export const View3 = ({ order }) => {
-    const navigate = useNavigate();
 
-    const handleDesactive = async() => {
-        try {
-            await updateFieldInDocumentInCollection('orders', order.idPost, 'active', false);
-            toast.success('Заказ перемещен в архив');
-            navigate('/orderList');
-        } catch (error) {
-            console.log(error);
-            toast.error('Something went wrong...');
-        }
-    };
+
+    console.log(order.execution)
 
     return (
         <div className='flex flex-col'>
           <div className="border-b border-[#333232] pb-[20px]  pt-[20px] flex flex-col gap-[10px]">
           <label className="flex justify-between lg:items-center lg:flex-row flex-col">
                 <span className="font-bold lg:text-[20px] text-[16px]">Видео</span>
-                    <div className="w-full lg:w-3/4 h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2"
-                >
-                    {order.videos.length > 0 && 
-                        <a href={order.videos} target="_blank">ссылка</a>
-                    }
+                <div className='w-full lg:w-3/4'>
+                     {order.videos.filter(el => el.length > 0).map(el => {
+                    return (
+                        <div 
+                          className=" h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2 leading-[36px]" 
+                          key={el}
+                        >
+                            <a href={el} target="_blank">ссылка</a>
+                        </div>
+                     )
+                    })}
+                </div>
+                 
                     
-                    </div>
                 </label>
            </div>
            <div className="border-b border-[#333232] pb-[20px] pt-[20px] flex gap-[10px]">
@@ -50,11 +44,11 @@ export const View3 = ({ order }) => {
            <div className="pb-[20px] pt-[20px] flex gap-[10px] border-b border-[#333232] pb-[20px] ">
                 <label className="flex flex-col gap-[10px]">
                     <span className="font-bold lg:text-[20px] text-[16px]">Процент выполнения</span>
-                    <div>
                         <div className='h-[16px] w-[100px] bg-[#9db3f3] rounded'>
-                            <div className={`h-[16px] bg-[#375fd5] rounded w-[${(order.execution)}px]`} />
+                            <div 
+                                className='h-[16px] bg-[#375fd5] rounded'
+                                style={{width: +order.execution}} />
                         </div>
-                    </div>
                 </label>
             </div>
             <div className="pb-[20px]  pt-[20px] flex flex-col gap-[10px]">
@@ -64,12 +58,6 @@ export const View3 = ({ order }) => {
               />
             </div>
             
-            <Button
-                type="submit"
-                label='Принять'
-                className='self-end' 
-                callback={handleDesactive}
-            />
             </div> 
     )
 }

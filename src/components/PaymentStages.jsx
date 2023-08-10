@@ -59,7 +59,7 @@ export const PaymentStages = ({ title, order, setOrder, disabled, ...props }) =>
 
             {Object.entries(order.paymentStages).slice(0, -1).map((el, i) => {
                 return (
-                     <label className="flex gap-[5px] items-center" key={el[1].value + i}>
+                     <label className="flex gap-[5px] items-center" key={i}>
                         <input
                             className="w-[50px] h-[36px] rounded border-[#E9E9E9] border pl-3 mt-2"
                             type="number"

@@ -25,16 +25,19 @@ export const Kanban = ({ orders }) => {
         <>
          <div className=" px-[5px] lg:px-[20px]">
             <Row className="font-bold text-[#727272] border-b-2 border-['#E9E9E9'] text-[10px] lg:text-[16px]">
-                <Col className="border-r-2 border-['#E9E9E9'] text-center pb-[10px]">Stage #1</Col>
-                <Col className="border-r-2 border-['#E9E9E9'] text-center pb-[10px]">Stage #2</Col>
-                <Col className="border-r-2 border-['#E9E9E9'] text-center pb-[10px]">Stage #3</Col>
-                <Col className="text-center pb-[10px]">Stage #4</Col>
+                <Col className="border-r-2 border-['#E9E9E9'] text-center pb-[10px]">#1</Col>
+                <Col className="border-r-2 border-['#E9E9E9'] text-center pb-[10px]">#2</Col>
+                <Col className="border-r-2 border-['#E9E9E9'] text-center pb-[10px]">#3</Col>
+                <Col className="border-r-2 border-['#E9E9E9'] text-center pb-[10px]">#4</Col>
+                <Col className="border-r-2 border-['#E9E9E9'] text-center pb-[10px]">#5</Col>
+                <Col className="border-r-2 border-['#E9E9E9'] text-center pb-[10px]">#6</Col>
+                <Col className="text-center pb-[10px]">#7</Col>
             </Row>
             <Row>
-                <Col className="border-r-2 border-['#E9E9E9'] text-center pt-[20px] flex flex-col gap-[20px]">
-                    {orders.filter(el => (el.stage === '1')).map(el => {
+                <Col className="border-r-2 border-['#E9E9E9'] text-center pt-[5px] lg:pt-[20px] flex flex-col gap-[5px] lg:gap-[20px] text-[9px] lg:text-[16px]">
+                    {orders.filter(el => (el.stage.value === '1')).map(el => {
                         return (
-                            <div className="border border-[#E9E9E9] p-[10px] lg:p-[20px] lg:flex lg:gap-[40px] rounded lg:justify-center gap-[0px] block" key={el.id}>
+                            <div className="border border-[#E9E9E9] py-[5px] lg:py-[10px] px-[1px] lg:px-[5px] lg:p-[20px] lg:flex lg:gap-[10px] rounded lg:justify-center gap-[0px] block" key={el.id}>
                                 <Link onClick={() => handleChangeStage(el)} to={`/orderList/${el.id}`}>{el.id}</Link>
                                   <button 
                                     className="hidden lg:block"  
@@ -49,10 +52,10 @@ export const Kanban = ({ orders }) => {
                         )
                     })}
                 </Col>
-                <Col className="border-r-2 border-['#E9E9E9'] text-center pt-[20px] flex flex-col gap-[20px]">
-                    {orders.filter(el => (el.stage === '2')).map(el => {
+                <Col className="border-r-2 border-['#E9E9E9'] text-center pt-[5px] lg:pt-[20px] flex flex-col gap-[5px] lg:gap-[20px] text-[9px] lg:text-[16px]">
+                    {orders.filter(el => (el.stage.value === '2')).map(el => {
                         return (
-                            <div className="border border-[#E9E9E9] p-[10px] lg:p-[20px] lg:flex lg:gap-[40px] rounded lg:justify-center gap-[0px] block"  key={el.id}>
+                            <div className="border border-[#E9E9E9] py-[5px] lg:py-[10px] px-[1px] lg:px-[5px] lg:p-[20px] lg:flex lg:gap-[10px] rounded lg:justify-center gap-[0px] block"  key={el.id}>
                                 <Link to={`/orderList/${el.id}`}>{el.id}</Link>
                                   <button 
                                     className="hidden lg:block" 
@@ -67,10 +70,10 @@ export const Kanban = ({ orders }) => {
                         )
                     })}
                 </Col>
-                <Col className="border-r-2 border-['#E9E9E9'] text-center pt-[20px] flex flex-col gap-[20px]">
-                {orders.filter(el => (el.stage === '3')).map(el => {
+                <Col className="border-r-2 border-['#E9E9E9'] text-center pt-[5px] lg:pt-[20px] flex flex-col gap-[5px] lg:gap-[20px] text-[9px] lg:text-[16px]">
+                {orders.filter(el => (el.stage.value === '3')).map(el => {
                         return (
-                            <div className="border border-[#E9E9E9] p-[10px] lg:p-[20px] lg:flex lg:gap-[40px] rounded lg:justify-center gap-[0px] block" key={el.id}>
+                            <div className="border border-[#E9E9E9] py-[5px] lg:py-[10px] px-[1px] lg:px-[5px] lg:p-[20px] lg:flex lg:gap-[10px] rounded lg:justify-center gap-[0px] block" key={el.id}>
                                 <Link to={`/orderList/${el.id}`}>{el.id}</Link>
                                   <button 
                                     className="hidden lg:block" 
@@ -85,10 +88,64 @@ export const Kanban = ({ orders }) => {
                         )
                     })}
                 </Col>
-                <Col className="text-center pt-[20px] flex flex-col gap-[20px] text-[10px] lg:text-[16px]">
-                {orders.filter(el => (el.stage === '4')).map(el => {
+                <Col className="border-r-2 border-['#E9E9E9'] text-center pt-[5px] lg:pt-[20px] flex flex-col gap-[5px] lg:gap-[20px] text-[9px] lg:text-[16px]">
+                {orders.filter(el => (el.stage.value === '4')).map(el => {
                         return (
-                            <div className="border border-[#E9E9E9] p-[10px] lg:p-[20px] lg:flex lg:gap-[40px] rounded lg:justify-center gap-[0px] block" key={el.id}>
+                            <div className="border border-[#E9E9E9] py-[5px] lg:py-[10px] px-[1px] lg:px-[5px] lg:p-[20px] lg:flex lg:gap-[10px] rounded lg:justify-center gap-[0px] block" key={el.id}>
+                                <Link to={`/orderList/${el.id}`}>{el.id}</Link>
+                                  <button
+                                    className="hidden lg:block" 
+                                    onClick={() => {
+                                        setIsWarningModal(true);
+                                        setDeletingElement(el)
+                                    }}
+                                  >
+                                <GrClose />
+                            </button>
+                            </div>
+                        )
+                    })}
+                </Col>
+                <Col className="border-r-2 border-['#E9E9E9'] text-center pt-[5px] lg:pt-[20px] flex flex-col gap-[5px] lg:gap-[20px] text-[9px] lg:text-[16px]">
+                {orders.filter(el => (el.stage.value === '5')).map(el => {
+                        return (
+                            <div className="border border-[#E9E9E9] py-[5px] lg:py-[10px] px-[1px] lg:px-[5px] lg:p-[20px] lg:flex lg:gap-[10px] rounded lg:justify-center gap-[0px] block" key={el.id}>
+                                <Link to={`/orderList/${el.id}`}>{el.id}</Link>
+                                  <button
+                                    className="hidden lg:block" 
+                                    onClick={() => {
+                                        setIsWarningModal(true);
+                                        setDeletingElement(el)
+                                    }}
+                                  >
+                                <GrClose />
+                            </button>
+                            </div>
+                        )
+                    })}
+                </Col>
+                <Col className="border-r-2 border-['#E9E9E9'] text-center pt-[5px] lg:pt-[20px] flex flex-col gap-[5px] lg:gap-[20px] text-[9px] lg:text-[16px]">
+                {orders.filter(el => (el.stage.value === '6')).map(el => {
+                        return (
+                            <div className="border border-[#E9E9E9] py-[5px] lg:py-[10px] px-[1px] lg:px-[5px] lg:p-[20px] lg:flex lg:gap-[10px] rounded lg:justify-center gap-[0px] block" key={el.id}>
+                                <Link to={`/orderList/${el.id}`}>{el.id}</Link>
+                                  <button
+                                    className="hidden lg:block" 
+                                    onClick={() => {
+                                        setIsWarningModal(true);
+                                        setDeletingElement(el)
+                                    }}
+                                  >
+                                <GrClose />
+                            </button>
+                            </div>
+                        )
+                    })}
+                </Col>
+                <Col className="text-center pt-[5px] lg:pt-[20px] flex flex-col gap-[5px] lg:gap-[20px] text-[9px] lg:text-[16px]">
+                {orders.filter(el => (el.stage.value === '7')).map(el => {
+                        return (
+                            <div className="border border-[#E9E9E9] py-[5px] lg:py-[10px] px-[1px] lg:px-[5px] lg:p-[20px] lg:flex lg:gap-[10px] rounded lg:justify-center gap-[0px] block" key={el.id}>
                                 <Link to={`/orderList/${el.id}`}>{el.id}</Link>
                                   <button
                                     className="hidden lg:block" 
